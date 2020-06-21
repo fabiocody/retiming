@@ -1,21 +1,21 @@
 digraph  {
 h [weight=0];
+d0 [weight=3];
 d1 [weight=3];
 d2 [weight=3];
 d3 [weight=3];
-d4 [weight=3];
+p0 [weight=7];
 p1 [weight=7];
 p2 [weight=7];
-p3 [weight=7];
-h -> d1  [key=0, weight=1];
-d1 -> d2  [key=0, weight=1];
+h -> d0  [key=0, weight=1];
+d0 -> d1  [key=0, weight=1];
+d0 -> p0  [key=0, weight=0];
+d1 -> d2  [key=0, weight=0];
 d1 -> p1  [key=0, weight=0];
-d2 -> d3  [key=0, weight=0];
+d2 -> d3  [key=0, weight=1];
 d2 -> p2  [key=0, weight=0];
-d3 -> d4  [key=0, weight=1];
-d3 -> p3  [key=0, weight=0];
-d4 -> p3  [key=0, weight=0];
-p1 -> h  [key=0, weight=0];
-p2 -> p1  [key=0, weight=0];
-p3 -> p2  [key=0, weight=1];
+d3 -> p2  [key=0, weight=0];
+p0 -> h  [key=0, weight=0];
+p1 -> p0  [key=0, weight=0];
+p2 -> p1  [key=0, weight=1];
 }
