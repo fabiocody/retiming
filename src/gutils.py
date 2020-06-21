@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 
 def draw_graph(g, weights=False):
+    g = nx.DiGraph(g)
     pos = nx.planar_layout(g)
     edge_weights = nx.get_edge_attributes(g, 'weight')
     node_weights = nx.get_node_attributes(g, 'weight')
@@ -20,7 +21,7 @@ def add_weighted_node(g, n, w):
 
 
 def gen_correlator1():
-    g = nx.DiGraph()
+    g = nx.MultiDiGraph()
     add_weighted_node(g, 'h', 0)
     add_weighted_node(g, 'd1', 3)
     add_weighted_node(g, 'd2', 3)
@@ -42,12 +43,12 @@ def gen_correlator1():
         ('p2', 'p1', 0),
         ('p1', 'h', 0)
     ])
-    write_dot(g, 'graphs/correlator1.dot')
+    write_dot(g, '../graphs/correlator1.dot')
     return g
 
 
 def gen_correlator2():
-    g = nx.DiGraph()
+    g = nx.MultiDiGraph()
     add_weighted_node(g, 'h', 0)
     add_weighted_node(g, 'd1', 3)
     add_weighted_node(g, 'd2', 3)
@@ -69,15 +70,15 @@ def gen_correlator2():
         ('p2', 'p1', 0),
         ('p1', 'h', 0)
     ])
-    write_dot(g, 'graphs/correlator2.dot')
+    write_dot(g, '../graphs/correlator2.dot')
     return g
 
 
 def load_graph(path):
-    g = nx.DiGraph(read_dot(path))
+    g = read_dot(path)
     nodes = g.nodes(data=True)
     for e in g.edges:
-        for v in e:
+        for v in e[0:2]:
             v = nodes[v]
             v['weight'] = int(v['weight'])
         g.edges[e]['weight'] = int(g.edges[e]['weight'])
