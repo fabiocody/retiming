@@ -10,8 +10,7 @@ def cp(g):      # O(|E|)
 
     def __delta(g, v):
         delta_v = g.nodes[v]['weight']
-        incoming_nodes = list(g.in_edges(v))
-        if len(incoming_nodes) > 0:
+        if g.in_degree(v) > 0:
             delta_v += max(list(map(lambda e: __delta(g, e[0]), g.in_edges(v))))
         return delta_v
 
