@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def draw_graph(g, weights=False):
     g = nx.DiGraph(g)
-    pos = nx.planar_layout(g)
+    pos = nx.shell_layout(g)
     edge_weights = nx.get_edge_attributes(g, 'weight')
     node_weights = nx.get_node_attributes(g, 'weight')
     nx.draw_networkx(g, pos, font_color='white', font_size=10, node_shape='s', labels=node_weights if weights else None)
