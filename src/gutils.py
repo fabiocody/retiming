@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def draw_graph(g, weights=False):
     g = nx.DiGraph(g)
-    pos = nx.shell_layout(g)
+    pos = nx.planar_layout(g)
     edge_weights = nx.get_edge_attributes(g, 'weight')
     node_weights = nx.get_node_attributes(g, 'weight')
     nx.draw_networkx(g, pos, font_color='white', font_size=10, node_shape='s', labels=node_weights if weights else None)
@@ -21,7 +21,7 @@ def add_weighted_node(g, n, w):
     g.add_node(n, weight=w)
 
 
-def gen_correlator1():
+def gen_correlator(n):
     g = nx.MultiDiGraph()
     add_weighted_node(g, 'h', 0)
     add_weighted_node(g, 'd0', 3)
@@ -31,47 +31,38 @@ def gen_correlator1():
     add_weighted_node(g, 'p0', 7)
     add_weighted_node(g, 'p1', 7)
     add_weighted_node(g, 'p2', 7)
-    g.add_weighted_edges_from([
-        ('h', 'd0', 1),
-        ('d0', 'd1', 1),
-        ('d0', 'p0', 0),
-        ('d1', 'd2', 1),
-        ('d1', 'p1', 0),
-        ('d2', 'd3', 1),
-        ('d2', 'p2', 0),
-        ('d3', 'p2', 0),
-        ('p2', 'p1', 0),
-        ('p1', 'p0', 0),
-        ('p0', 'h', 0)
-    ])
-    write_dot(g, '../graphs/correlator1.dot')
-    return g
-
-
-def gen_correlator2():
-    g = nx.MultiDiGraph()
-    add_weighted_node(g, 'h', 0)
-    add_weighted_node(g, 'd0', 3)
-    add_weighted_node(g, 'd1', 3)
-    add_weighted_node(g, 'd2', 3)
-    add_weighted_node(g, 'd3', 3)
-    add_weighted_node(g, 'p0', 7)
-    add_weighted_node(g, 'p1', 7)
-    add_weighted_node(g, 'p2', 7)
-    g.add_weighted_edges_from([
-        ('h', 'd0', 1),
-        ('d0', 'd1', 1),
-        ('d0', 'p0', 0),
-        ('d1', 'd2', 0),
-        ('d1', 'p1', 0),
-        ('d2', 'd3', 1),
-        ('d2', 'p2', 0),
-        ('d3', 'p2', 0),
-        ('p2', 'p1', 1),
-        ('p1', 'p0', 0),
-        ('p0', 'h', 0)
-    ])
-    write_dot(g, '../graphs/correlator2.dot')
+    if n == 1:
+        g.add_weighted_edges_from([
+            ('h', 'd0', 1),
+            ('d0', 'd1', 1),
+            ('d0', 'p0', 0),
+            ('d1', 'd2', 1),
+            ('d1', 'p1', 0),
+            ('d2', 'd3', 1),
+            ('d2', 'p2', 0),
+            ('d3', 'p2', 0),
+            ('p2', 'p1', 0),
+            ('p1', 'p0', 0),
+            ('p0', 'h', 0)
+        ])
+        write_dot(g, '../graphs/correlator1.dot')
+    elif n == 2:
+        g.add_weighted_edges_from([
+            ('h', 'd0', 1),
+            ('d0', 'd1', 1),
+            ('d0', 'p0', 0),
+            ('d1', 'd2', 0),
+            ('d1', 'p1', 0),
+            ('d2', 'd3', 1),
+            ('d2', 'p2', 0),
+            ('d3', 'p2', 0),
+            ('p2', 'p1', 1),
+            ('p1', 'p0', 0),
+            ('p0', 'h', 0)
+        ])
+        write_dot(g, '../graphs/correlator2.dot')
+    else:
+        raise NotImplementedError()
     return g
 
 

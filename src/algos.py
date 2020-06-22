@@ -22,7 +22,7 @@ def cp(g):      # O(|E|)
     return max(delta.values())
 
 
-def wd(g):
+def wd(g):      # O(|V|^3)
     g = g.copy()
     for e in g.edges:
         g.edges[e]['weight'] = MyTuple((w(g, e), -d(g, e[0])))
@@ -36,12 +36,11 @@ def wd(g):
     return W, D
 
 
-def opt1(g):
+def opt1(g):    # O(|V|^3 lg|V|)
     W, D = wd(g)
     D_np = wd2numpy(D)
     D_range = np.unique(D_np)
     D_range.sort()
-
     root = 'root'
 
     def check_th7(edges, nodes, c):
@@ -56,21 +55,20 @@ def opt1(g):
             return None
 
     def binary_search(arr):
-        def bs_rec(arr, low, high, prev_mid=None, prev_x=None):
+        def bs_rec(low, high, prev_mid=None, prev_x=None):
             if high >= low:
                 mid = (high + low) // 2
                 x = check_th7(g.edges, g.nodes, arr[mid])
                 if x is None:
-                    return bs_rec(arr, mid+1, high, prev_mid, prev_x)
+                    return bs_rec(mid+1, high, prev_mid, prev_x)
                 else:
-                    return bs_rec(arr, low, mid-1, mid, x)
+                    return bs_rec(low, mid-1, mid, x)
             else:
                 return arr[prev_mid], prev_x
-        clock, r = bs_rec(arr, 0, len(arr)-1)
-        del r[root]
-        return clock, r
+        return bs_rec(0, len(arr)-1)
 
     clock, r = binary_search(D_range)
-
     gr = g.copy()
-    # TODO: apply retiming
+    for e in gr.edges:
+        gr.edges[e]['weight'] = gr.edges[e]['weight'] + r[e[1]] - r[e[0]]
+    return gr
