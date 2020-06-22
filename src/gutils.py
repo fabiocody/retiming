@@ -3,6 +3,7 @@
 
 import networkx as nx
 from networkx.drawing.nx_pydot import write_dot, read_dot
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -83,3 +84,33 @@ def load_graph(path):
             v['weight'] = int(v['weight'])
         g.edges[e]['weight'] = int(g.edges[e]['weight'])
     return g
+
+
+def w(g, e):
+    return g.edges[e]['weight']
+
+
+def d(g, v):
+    return g.nodes[v]['weight']
+
+
+def wd2numpy(m):
+    order = ['h', 'd0', 'd1', 'd2', 'd3', 'p2', 'p1', 'p0']
+    lists = [[] for _ in order]
+    for u in order:
+        for v in order:
+            lists[order.index(u)].append(m[u][v])
+    return np.array(lists)
+
+
+def print_correlator_WD(W, D):
+    order = ['h', 'd0', 'd1', 'd2', 'd3', 'p2', 'p1', 'p0']
+    for u in order:
+        for v in order:
+            print(W[u][v], end=' ')
+        print()
+    print()
+    for u in order:
+        for v in order:
+            print(f'{D[u][v]:2d}', end=' ')
+        print()
