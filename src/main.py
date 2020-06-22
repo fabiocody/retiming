@@ -3,13 +3,6 @@
 import networkx as nx
 import gutils
 from algos import wd
-from structures import MyTuple
-
-
-def f_weight(u, v, d):
-    w = d['0']['weight']
-    print(u, v, w)
-    return 1, 1
 
 
 if __name__ == '__main__':
