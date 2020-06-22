@@ -3,7 +3,7 @@
 from unittest import TestCase
 import numpy as np
 
-from algos import cp, wd
+from algos import cp, wd, opt1
 from gutils import load_graph, wd2numpy
 
 
@@ -46,4 +46,14 @@ class Tests(TestCase):
         D = wd2numpy(D)
         self.assertTrue((W == W_test).all())
         self.assertTrue((D == D_test).all())
+
+    def test_correlator1_opt1(self):
+        g = load_graph('../graphs/correlator1.dot')
+        gr = opt1(g)
+        self.assertEqual(cp(gr), 13)
+
+    def test_correlator2_opt1(self):
+        g = load_graph('../graphs/correlator2.dot')
+        gr = opt1(g)
+        self.assertEqual(cp(gr), 13)
 
