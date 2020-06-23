@@ -2,9 +2,8 @@
 
 from unittest import TestCase
 import numpy as np
-
 from algos import cp, wd, retime, opt1, feas, opt2
-from gutils import load_graph, wd2numpy
+from utils import load_graph, wd2numpy
 
 
 class Tests(TestCase):
@@ -80,5 +79,3 @@ class Tests(TestCase):
         g = load_graph('../graphs/correlator2.dot')
         gr = opt2(g)
         self.assertEqual(cp(gr), 13)
-
-

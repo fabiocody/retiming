@@ -2,7 +2,7 @@
 
 import networkx as nx
 import numpy as np
-from gutils import d, w, wd2numpy
+from utils import d, w, wd2numpy
 from structures import MyTuple
 
 
@@ -45,7 +45,7 @@ def retime(g, r):
     return gr
 
 
-def binary_search(arr, f, g):
+def __binary_search(arr, f, g):
     def bs_rec(low, high, prev_mid=None, prev_x=None):
         if high >= low:
             mid = (high + low) // 2
@@ -77,7 +77,7 @@ def opt1(g):    # O(|V|^3 lg|V|)
         except nx.exception.NetworkXUnbounded:
             return None
 
-    _, r = binary_search(D_range, check_th7, g)
+    _, r = __binary_search(D_range, check_th7, g)
     return retime(g, r)
 
 
@@ -97,11 +97,9 @@ def feas(g, c):     # O(|V||E|)
         return r
 
 
-def opt2(g):
+def opt2(g):        # O(|V||E| lg|V|)
     W, D = wd(g)
     D_range = np.unique(wd2numpy(D))
     D_range.sort()
-    _, r = binary_search(D_range, feas, g)
+    _, r = __binary_search(D_range, feas, g)
     return retime(g, r)
-
-

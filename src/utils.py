@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 import networkx as nx
 from networkx.drawing.nx_pydot import write_dot, read_dot
 import numpy as np
