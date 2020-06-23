@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 def draw_graph(g, weights=False):
     g = nx.DiGraph(g)
-    pos = nx.shell_layout(g)
+    pos = nx.circular_layout(g)
     edge_weights = nx.get_edge_attributes(g, 'weight')
     node_weights = nx.get_node_attributes(g, 'weight')
     nx.draw_networkx(g, pos, font_color='white', font_size=10, node_shape='s', labels=node_weights if weights else None)
@@ -121,6 +121,7 @@ def check_if_synchronous_circuit(g):
             for e in cycle:
                 if g.edges[e]['weight'] > 0:
                     condition = True
+                    break
             if not condition:
                 return False
             g.remove_edges_from(cycle)
@@ -129,15 +130,17 @@ def check_if_synchronous_circuit(g):
     return True
 
 
-def gen_random_circuit(n=15, e=20):
+def gen_random_circuit(N=15, E=20):
     while True:
-        try:
-            g = nx.gnm_random_graph(n, e, directed=True)
-            for v in g.nodes:
-                g.nodes[v]['weight'] = np.random.randint(5)
-            for e in g.edges:
-                g.edges[e]['weight'] = np.random.randint(5)
-            if check_if_synchronous_circuit(g):
-                return g
-        except:
-            pass
+        g = nx.gnm_random_graph(N, E, directed=True)
+        for v in g.nodes:
+            g.nodes[v]['weight'] = np.random.randint(1, 3)
+        g.nodes[0]['weight'] = 0
+        for e in g.edges:
+            g.edges[e]['weight'] = np.random.randint(3)
+        zero_edges = list(filter(lambda e: w(g, e) == 0, g.edges))
+        g0 = g.edge_subgraph(zero_edges)
+        if not nx.is_directed_acyclic_graph(g0):
+            continue
+        if check_if_synchronous_circuit(g):
+            return g

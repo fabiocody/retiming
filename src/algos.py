@@ -77,7 +77,7 @@ def opt1(g):    # O(|V|^3 lg|V|)
         except nx.exception.NetworkXUnbounded:
             return None
 
-    _, r = __binary_search(D_range, check_th7, g)
+    clock, r = __binary_search(D_range, check_th7, g)
     return retime(g, r)
 
 
@@ -101,5 +101,5 @@ def opt2(g):        # O(|V||E| lg|V|)
     W, D = wd(g)
     D_range = np.unique(wd2numpy(D))
     D_range.sort()
-    _, r = __binary_search(D_range, feas, g)
+    clock, r = __binary_search(D_range, feas, g)
     return retime(g, r)

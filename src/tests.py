@@ -4,7 +4,7 @@ from unittest import TestCase
 import numpy as np
 from algos import cp, wd, retime, opt1, feas, opt2
 from structures import MyTuple
-from utils import load_graph, check_if_synchronous_circuit
+from utils import load_graph, check_if_synchronous_circuit, gen_random_circuit
 
 
 def wd2numpy_correlator(m):
@@ -136,3 +136,15 @@ class Tests(TestCase):
         self.assertTrue(check_if_synchronous_circuit(g))
         gr = opt2(g)
         self.assertTrue(check_if_synchronous_circuit(gr))
+
+    '''def test_random_opt1(self):
+        for _ in range(100):
+            g = gen_random_circuit(N=8, E=11)
+            gr = opt1(g)
+            self.assertLessEqual(cp(gr), cp(g))
+
+    def test_random_opt2(self):
+        for _ in range(100):
+            g = gen_random_circuit(N=8, E=11)
+            gr = opt2(g)
+            self.assertLessEqual(cp(gr), cp(g))'''
