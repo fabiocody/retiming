@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 def draw_graph(g, weights=False):
     g = nx.DiGraph(g)
-    pos = nx.planar_layout(g)
+    pos = nx.shell_layout(g)
     edge_weights = nx.get_edge_attributes(g, 'weight')
     node_weights = nx.get_node_attributes(g, 'weight')
     nx.draw_networkx(g, pos, font_color='white', font_size=10, node_shape='s', labels=node_weights if weights else None)
@@ -85,11 +85,7 @@ def d(g, v):
 
 
 def wd2numpy(m):
-    order = ['h', 'd0', 'd1', 'd2', 'd3', 'p2', 'p1', 'p0']
-    lists = [[] for _ in order]
-    for u in order:
-        for v in order:
-            lists[order.index(u)].append(m[u][v])
+    lists = [list(m[k].values()) for k in m]
     return np.array(lists)
 
 
@@ -104,3 +100,44 @@ def print_correlator_WD(W, D):
         for v in order:
             print(f'{D[u][v]:2d}', end=' ')
         print()
+
+
+def check_if_synchronous_circuit(g):
+    # D1: the propagation delay d(v) is non-negative for each vertex v
+    for v in g.nodes:
+        if g.nodes[v]['weight'] < 0:
+            return False
+    # W1: the register count w(e) is a non-negative integer for each edge e
+    for e in g.edges:
+        if g.edges[e]['weight'] < 0:
+            return False
+    # W2: in any directed cycle of G, there is some edge with strictly positive register count
+    g = g.copy()
+    stop = False
+    while not stop:
+        try:
+            cycle = nx.find_cycle(g)
+            condition = False
+            for e in cycle:
+                if g.edges[e]['weight'] > 0:
+                    condition = True
+            if not condition:
+                return False
+            g.remove_edges_from(cycle)
+        except nx.exception.NetworkXNoCycle:
+            stop = True
+    return True
+
+
+def gen_random_circuit(n=15, e=20):
+    while True:
+        try:
+            g = nx.gnm_random_graph(n, e, directed=True)
+            for v in g.nodes:
+                g.nodes[v]['weight'] = np.random.randint(5)
+            for e in g.edges:
+                g.edges[e]['weight'] = np.random.randint(5)
+            if check_if_synchronous_circuit(g):
+                return g
+        except:
+            pass

@@ -33,8 +33,8 @@ def wd(g):      # O(|V|^3)
         for k in sp[h]:
             if sp[h][k] == 0:
                 sp[h][k] = MyTuple([0, 0])
-    W = {u: {v: sp[u][v][0] for v in g.nodes} for u in g.nodes}
-    D = {u: {v: d(g, v) - sp[u][v][1] for v in g.nodes} for u in g.nodes}
+    W = {u: {v: sp[u][v][0] if sp[u][v] != np.inf else sp[u][v] for v in g.nodes} for u in g.nodes}
+    D = {u: {v: d(g, v) - sp[u][v][1] if sp[u][v] != np.inf else d(g, v) - sp[u][v] for v in g.nodes} for u in g.nodes}
     return W, D
 
 

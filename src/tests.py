@@ -4,7 +4,16 @@ from unittest import TestCase
 import numpy as np
 from algos import cp, wd, retime, opt1, feas, opt2
 from structures import MyTuple
-from utils import load_graph, wd2numpy
+from utils import load_graph, check_if_synchronous_circuit
+
+
+def wd2numpy_correlator(m):
+    order = ['h', 'd0', 'd1', 'd2', 'd3', 'p2', 'p1', 'p0']
+    lists = [[] for _ in order]
+    for u in order:
+        for v in order:
+            lists[order.index(u)].append(m[u][v])
+    return np.array(lists)
 
 
 class Tests(TestCase):
@@ -42,8 +51,8 @@ class Tests(TestCase):
         ])
         g = load_graph('../graphs/correlator1.dot')
         W, D = wd(g)
-        W = wd2numpy(W)
-        D = wd2numpy(D)
+        W = wd2numpy_correlator(W)
+        D = wd2numpy_correlator(D)
         self.assertTrue((W == W_test).all())
         self.assertTrue((D == D_test).all())
 
@@ -115,3 +124,15 @@ class Tests(TestCase):
         self.assertFalse(t1 == t3)
         self.assertFalse(t1 == t5)
         self.assertFalse(t1 == [1, 2])
+
+    def test_correlator1_synchronous_circuit(self):
+        g = load_graph('../graphs/correlator1.dot')
+        self.assertTrue(check_if_synchronous_circuit(g))
+        gr = opt2(g)
+        self.assertTrue(check_if_synchronous_circuit(gr))
+
+    def test_correlator2_synchronous_circuit(self):
+        g = load_graph('../graphs/correlator2.dot')
+        self.assertTrue(check_if_synchronous_circuit(g))
+        gr = opt2(g)
+        self.assertTrue(check_if_synchronous_circuit(gr))

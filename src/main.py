@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-from utils import load_graph, draw_graph
+import networkx as nx
+from utils import load_graph, draw_graph, check_if_synchronous_circuit, gen_random_circuit
 from algos import opt1, opt2, cp
 
 
 if __name__ == '__main__':
-    g = load_graph('../graphs/correlator1.dot')
+    g = gen_random_circuit()
     draw_graph(g)
-    gr1 = opt1(g)
-    draw_graph(gr1)
-    gr2 = opt2(g)
-    draw_graph(gr2)
-    assert cp(gr1) == cp(gr2)
+    print(f'Original clock period  = {cp(g)}')
+    gr = opt2(g)
+    print(f'Optimized clock period = {cp(gr)}')
+    assert cp(gr) <= cp(g)
