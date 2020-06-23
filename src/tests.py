@@ -3,7 +3,7 @@
 from unittest import TestCase
 import numpy as np
 
-from algos import cp, wd, opt1
+from algos import cp, wd, retime, opt1, feas, opt2
 from gutils import load_graph, wd2numpy
 
 
@@ -56,4 +56,29 @@ class Tests(TestCase):
         g = load_graph('../graphs/correlator2.dot')
         gr = opt1(g)
         self.assertEqual(cp(gr), 13)
+
+    def test_correlator1_feas(self):
+        g = load_graph('../graphs/correlator1.dot')
+        r = feas(g, 13)
+        self.assertIsNotNone(r)
+        gr = retime(g, r)
+        self.assertEqual(cp(gr), 13)
+
+    def test_correlator2_feas(self):
+        g = load_graph('../graphs/correlator2.dot')
+        r = feas(g, 13)
+        self.assertIsNotNone(r)
+        gr = retime(g, r)
+        self.assertEqual(cp(gr), 13)
+
+    def test_correlator1_opt2(self):
+        g = load_graph('../graphs/correlator1.dot')
+        gr = opt2(g)
+        self.assertEqual(cp(gr), 13)
+
+    def test_correlator2_opt2(self):
+        g = load_graph('../graphs/correlator2.dot')
+        gr = opt2(g)
+        self.assertEqual(cp(gr), 13)
+
 

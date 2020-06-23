@@ -8,7 +8,9 @@ from algos import retime, feas, opt1
 if __name__ == '__main__':
     g = gutils.load_graph('../graphs/correlator1.dot')
     gutils.draw_graph(g)
-    gr = retime(g, feas(g, 13))
+    r = feas(g, 13)
+    print(r)
+    gr = retime(g, r)
     gutils.draw_graph(gr)
     gr = opt1(g)
     gutils.draw_graph(gr)
