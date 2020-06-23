@@ -6,7 +6,7 @@ from gutils import d, w, wd2numpy
 from structures import MyTuple
 
 
-def cp(g):      # O(|E|)
+def cp(g, return_delta=False):      # O(|E|)
     zero_edges = list(filter(lambda e: w(g, e) == 0, g.edges))
     g0 = g.edge_subgraph(zero_edges)
     delta = dict()
@@ -19,6 +19,8 @@ def cp(g):      # O(|E|)
 
     for v in nx.algorithms.dag.topological_sort(g0):
         delta[v] = __delta(g0, v)
+    if return_delta:
+        return max(delta.values()), delta
     return max(delta.values())
 
 
@@ -34,6 +36,13 @@ def wd(g):      # O(|V|^3)
     W = {u: {v: sp[u][v][0] for v in g.nodes} for u in g.nodes}
     D = {u: {v: d(g, v) - sp[u][v][1] for v in g.nodes} for u in g.nodes}
     return W, D
+
+
+def retime(g, r):
+    gr = g.copy()
+    for e in gr.edges:
+        gr.edges[e]['weight'] = gr.edges[e]['weight'] + r[e[1]] - r[e[0]]
+    return gr
 
 
 def opt1(g):    # O(|V|^3 lg|V|)
@@ -67,8 +76,22 @@ def opt1(g):    # O(|V|^3 lg|V|)
                 return arr[prev_mid], prev_x
         return bs_rec(0, len(arr)-1)
 
-    clock, r = binary_search(D_range)
-    gr = g.copy()
-    for e in gr.edges:
-        gr.edges[e]['weight'] = gr.edges[e]['weight'] + r[e[1]] - r[e[0]]
-    return gr
+    _, r = binary_search(D_range)
+    return retime(g, r)
+
+
+def feas(g, c):     # O(|V||E|)
+    r = {v: 0 for v in g.nodes}
+    gr = None
+    for _ in range(g.number_of_nodes() - 1):
+        gr = retime(g, r)
+        _, delta = cp(gr, return_delta=True)
+        for v in delta.keys():
+            if delta[v] > c:
+                r[v] += 1
+    clock = cp(gr)
+    if clock > c:
+        return None
+    else:
+        return r
+
