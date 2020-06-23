@@ -3,6 +3,7 @@
 from unittest import TestCase
 import numpy as np
 from algos import cp, wd, retime, opt1, feas, opt2
+from structures import MyTuple
 from utils import load_graph, wd2numpy
 
 
@@ -79,3 +80,38 @@ class Tests(TestCase):
         g = load_graph('../graphs/correlator2.dot')
         gr = opt2(g)
         self.assertEqual(cp(gr), 13)
+
+    def test_MyTuple(self):
+        t1 = MyTuple((1, 2, 3))
+        t2 = MyTuple((1, 2, 3))
+        t3 = MyTuple((2, 3, 4))
+        t4 = MyTuple((0, 1, 2))
+        t5 = MyTuple((0, 1, 2, 3, 4))
+        self.assertEqual(t1+t1, MyTuple((2, 4, 6)))
+        self.assertEqual(t1+1, t3)
+        self.assertEqual(1+t1, t3)
+        self.assertRaises(NotImplementedError, lambda a, b: a+b, t1, [1, 2])
+        self.assertRaises(NotImplementedError, lambda a, b: a + b, [1, 2], t1)
+        self.assertEqual(t1, t2)
+        self.assertLess(t1, t3)
+        self.assertGreater(t1, t4)
+        self.assertLess(t2, t3)
+        self.assertGreater(t2, t4)
+        self.assertGreater(t3, t4)
+        self.assertFalse(t1 < t2)
+        self.assertFalse(t1 < [1, 2])
+        self.assertGreater(t1, 0)
+        self.assertFalse(t1 > [1, 2])
+        self.assertLessEqual(t1, t2)
+        self.assertFalse(t3 <= t1)
+        self.assertLessEqual(t1, 3)
+        self.assertFalse(t1 <= 2)
+        self.assertFalse(t1 <= [1, 2])
+        self.assertFalse(t1 >= t3)
+        self.assertGreaterEqual(t3, t1)
+        self.assertGreaterEqual(t3, 2)
+        self.assertFalse(t3 >= 4)
+        self.assertFalse(t1 >= [1, 2])
+        self.assertFalse(t1 == t3)
+        self.assertFalse(t1 == t5)
+        self.assertFalse(t1 == [1, 2])
