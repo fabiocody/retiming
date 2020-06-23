@@ -38,19 +38,19 @@ def wd(g):      # O(|V|^3)
 
 def opt1(g):    # O(|V|^3 lg|V|)
     W, D = wd(g)
-    D_np = wd2numpy(D)
-    D_range = np.unique(D_np)
+    D_range = np.unique(wd2numpy(D))
     D_range.sort()
     root = 'root'
 
     def check_th7(edges, nodes, c):
         bfg = nx.MultiDiGraph()
         bfg.add_weighted_edges_from([(e[1], e[0], w(g, e)) for e in edges])
-        bfg.add_weighted_edges_from([(v, u, W[u][v]-1) for u in nodes for v in nodes if D[u][v] > c])
+        bfg.add_weighted_edges_from([(v, u, W[u][v]-1)
+                                     for u in nodes for v in nodes
+                                     if D[u][v] > c and not (D[u][v] - d(g, v) > c or D[u][v] - d(g, u) > c)])
         bfg.add_weighted_edges_from([(root, n, 0) for n in bfg.nodes])
         try:
-            sp = nx.single_source_bellman_ford_path_length(bfg, root)
-            return sp
+            return nx.single_source_bellman_ford_path_length(bfg, root)
         except nx.exception.NetworkXUnbounded:
             return None
 
