@@ -139,21 +139,21 @@ class Tests(TestCase):
         self.assertTrue(check_if_synchronous_circuit(gr))
 
     def test_correlators(self):
-        for i in range(1, 21):
+        for i in range(1, 16):
             g = gen_correlator(i)
             gr1 = opt1(g)
             gr2 = opt2(g)
             self.assertLessEqual(cp(gr1), 14)
             self.assertLessEqual(cp(gr2), 14)
 
-    '''def test_random_opt1(self):
-        for _ in range(100):
+    def test_random_opt1(self):
+        for _ in range(10):
             g = gen_random_circuit()
             gr = opt1(g)
             self.assertLessEqual(cp(gr), cp(g))
 
     def test_random_opt2(self):
-        for _ in range(100):
+        for _ in range(10):
             g = gen_random_circuit()
             gr = opt2(g)
-            self.assertLessEqual(cp(gr), cp(g))'''
+            self.assertLessEqual(cp(gr), cp(g))

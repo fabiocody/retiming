@@ -10,7 +10,7 @@ if __name__ == '__main__':
     i = 0
     while True:
         print(f'\r{i}', end='')
-        g = gen_random_circuit(N=5, E=10)
+        g = gen_random_circuit(8, 11)
         gr1 = opt1(g)
         gr2 = opt2(g)
         cpg = cp(g)

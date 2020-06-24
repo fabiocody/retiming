@@ -69,7 +69,7 @@ def gen_correlator(k):
     return g
 
 
-def gen_random_circuit(N=15, E=30):
+def gen_random_circuit(N=8, E=11):
     while True:
         g = nx.gnm_random_graph(N, E, directed=True)
         for v in g.nodes:
@@ -78,10 +78,16 @@ def gen_random_circuit(N=15, E=30):
         for e in g.edges:
             g.edges[e]['weight'] = np.random.randint(3)
         if check_if_synchronous_circuit(g):
+            condition = False
             for n in g.nodes:
                 if g.in_degree(n) < 1 or not nx.has_path(g, n, 0):
-                    return gen_random_circuit(N, E)
+                    condition = True
+                    break
+            if condition:
+                continue
+            if g.out_degree(0) == 0:
+                continue
             node_weights = list(map(lambda n: g.nodes[n]['weight'], g.nodes))
-            if cp(g) < max(node_weights):
+            if cp(g) <= max(node_weights):
                 continue
             return g
