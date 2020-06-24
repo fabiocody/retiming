@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import networkx as nx
-from networkx.drawing.nx_pydot import write_dot, read_dot
+from networkx.drawing.nx_pydot import read_dot
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -18,51 +18,6 @@ def draw_graph(g, weights=False):
 
 def add_weighted_node(g, n, w):
     g.add_node(n, weight=w)
-
-
-def gen_correlator(n):
-    g = nx.MultiDiGraph()
-    add_weighted_node(g, 'h', 0)
-    add_weighted_node(g, 'd0', 3)
-    add_weighted_node(g, 'd1', 3)
-    add_weighted_node(g, 'd2', 3)
-    add_weighted_node(g, 'd3', 3)
-    add_weighted_node(g, 'p0', 7)
-    add_weighted_node(g, 'p1', 7)
-    add_weighted_node(g, 'p2', 7)
-    if n == 1:
-        g.add_weighted_edges_from([
-            ('h', 'd0', 1),
-            ('d0', 'd1', 1),
-            ('d0', 'p0', 0),
-            ('d1', 'd2', 1),
-            ('d1', 'p1', 0),
-            ('d2', 'd3', 1),
-            ('d2', 'p2', 0),
-            ('d3', 'p2', 0),
-            ('p2', 'p1', 0),
-            ('p1', 'p0', 0),
-            ('p0', 'h', 0)
-        ])
-        write_dot(g, '../graphs/correlator1.dot')
-    elif n == 2:
-        g.add_weighted_edges_from([
-            ('h', 'd0', 1),
-            ('d0', 'd1', 1),
-            ('d0', 'p0', 0),
-            ('d1', 'd2', 0),
-            ('d1', 'p1', 0),
-            ('d2', 'd3', 1),
-            ('d2', 'p2', 0),
-            ('d3', 'p2', 0),
-            ('p2', 'p1', 1),
-            ('p1', 'p0', 0),
-            ('p0', 'h', 0)
-        ])
-        write_dot(g, '../graphs/correlator2.dot')
-    else:
-        raise NotImplementedError()
-    return g
 
 
 def load_graph(path):
@@ -112,35 +67,28 @@ def check_if_synchronous_circuit(g):
         if g.edges[e]['weight'] < 0:
             return False
     # W2: in any directed cycle of G, there is some edge with strictly positive register count
-    g = g.copy()
-    stop = False
-    while not stop:
-        try:
-            cycle = nx.find_cycle(g)
-            condition = False
-            for e in cycle:
-                if g.edges[e]['weight'] > 0:
-                    condition = True
-                    break
-            if not condition:
-                return False
-            g.remove_edges_from(cycle)
-        except nx.exception.NetworkXNoCycle:
-            stop = True
+    for nodes in nx.simple_cycles(g):
+        cost = 0
+        for i in range(len(nodes)):
+            u = nodes[i]
+            v = nodes[(i + 1) % len(nodes)]
+            paths = list(filter(lambda p: len(p) == 2, nx.all_simple_paths(g, u, v)))
+            if isinstance(g, nx.MultiDiGraph):
+                key = list(map(lambda e: e[2], g.edges))[0]
+                if isinstance(key, str):
+                    edges = [paths[i] + [f'{i}'] for i in range(len(paths))]
+                elif isinstance(key, int):
+                    edges = [paths[i] + [i] for i in range(len(paths))]
+                else:
+                    raise NotImplementedError('Keys should be either strings or integers')
+            elif isinstance(g, nx.DiGraph):
+                edges = paths
+            else:
+                raise NotImplementedError('This function only works on (Multi)DiGraph')
+            min_cost = min(map(lambda e: g.edges[e]['weight'], edges))
+            cost += min_cost
+            if min_cost > 0:
+                break
+        if cost == 0:
+            return False
     return True
-
-
-def gen_random_circuit(N=15, E=20):
-    while True:
-        g = nx.gnm_random_graph(N, E, directed=True)
-        for v in g.nodes:
-            g.nodes[v]['weight'] = np.random.randint(1, 3)
-        g.nodes[0]['weight'] = 0
-        for e in g.edges:
-            g.edges[e]['weight'] = np.random.randint(3)
-        zero_edges = list(filter(lambda e: w(g, e) == 0, g.edges))
-        g0 = g.edge_subgraph(zero_edges)
-        if not nx.is_directed_acyclic_graph(g0):
-            continue
-        if check_if_synchronous_circuit(g):
-            return g

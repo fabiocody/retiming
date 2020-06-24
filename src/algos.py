@@ -2,22 +2,27 @@
 
 import networkx as nx
 import numpy as np
-from utils import d, w, wd2numpy
+from utils import d, w, wd2numpy, check_if_synchronous_circuit
 from structures import MyTuple
 
 
 def cp(g, return_delta=False):      # O(|E|)
     zero_edges = list(filter(lambda e: w(g, e) == 0, g.edges))
+    if len(zero_edges) == 0:
+        clock = max(map(lambda n: g.nodes[n]['weight'], g.nodes))
+        if return_delta:
+            return clock, {v: 0 for v in g.nodes}
+        return clock
     g0 = g.edge_subgraph(zero_edges)
     delta = dict()
 
     def __delta(g, v):
         delta_v = d(g, v)
         if g.in_degree(v) > 0:
-            delta_v += max(list(map(lambda e: __delta(g, e[0]), g.in_edges(v))))
+            delta_v += max(list(map(lambda e: delta[e[0]], g.in_edges(v))))
         return delta_v
 
-    for v in nx.algorithms.dag.topological_sort(g0):
+    for v in nx.topological_sort(g0):
         delta[v] = __delta(g0, v)
     if return_delta:
         return max(delta.values()), delta
