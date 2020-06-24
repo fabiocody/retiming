@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import networkx as nx
-from networkx.drawing.nx_pydot import read_dot
+from networkx.drawing.nx_pydot import read_dot, write_dot
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -11,7 +11,7 @@ def draw_graph(g, weights=False):
     pos = nx.circular_layout(g)
     edge_weights = nx.get_edge_attributes(g, 'weight')
     node_weights = nx.get_node_attributes(g, 'weight')
-    nx.draw_networkx(g, pos, font_color='white', font_size=10, node_shape='s', labels=node_weights if weights else None)
+    nx.draw_networkx(g, pos, font_color='white', font_size=10, labels=node_weights if weights else None)
     nx.draw_networkx_edge_labels(g, pos, edge_labels=edge_weights)
     plt.show()
 
@@ -29,6 +29,13 @@ def load_graph(path):
             v['weight'] = int(v['weight'])
         g.edges[e]['weight'] = int(g.edges[e]['weight'])
     return g
+
+
+def save_graph(g, path):
+    g = g.copy()
+    for e in g.edges:
+        g.edges[e]['label'] = g.edges[e]['weight']
+    write_dot(g, path)
 
 
 def w(g, e):
@@ -55,6 +62,11 @@ def print_correlator_WD(W, D):
         for v in order:
             print(f'{D[u][v]:2d}', end=' ')
         print()
+
+
+def get_g0(g):
+    zero_edges = list(filter(lambda e: w(g, e) == 0, g.edges))
+    return g.edge_subgraph(zero_edges)
 
 
 def check_if_synchronous_circuit(g):

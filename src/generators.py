@@ -79,7 +79,7 @@ def gen_random_circuit(N=15, E=30):
             g.edges[e]['weight'] = np.random.randint(3)
         if check_if_synchronous_circuit(g):
             for n in g.nodes:
-                if g.in_degree(n) < 1 or not nx.has_path(g, 0, n):
+                if g.in_degree(n) < 1 or not nx.has_path(g, n, 0):
                     return gen_random_circuit(N, E)
             node_weights = list(map(lambda n: g.nodes[n]['weight'], g.nodes))
             if cp(g) < max(node_weights):

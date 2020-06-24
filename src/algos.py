@@ -2,7 +2,7 @@
 
 import networkx as nx
 import numpy as np
-from utils import d, w, wd2numpy, check_if_synchronous_circuit
+from utils import d, w, wd2numpy
 from structures import MyTuple
 
 
@@ -38,15 +38,19 @@ def wd(g):      # O(|V|^3)
         for k in sp[h]:
             if sp[h][k] == 0:
                 sp[h][k] = MyTuple([0, 0])
-    W = {u: {v: sp[u][v][0] if sp[u][v] != np.inf else sp[u][v] for v in g.nodes} for u in g.nodes}
-    D = {u: {v: d(g, v) - sp[u][v][1] if sp[u][v] != np.inf else d(g, v) - sp[u][v] for v in g.nodes} for u in g.nodes}
+    W = {u: {v: sp[u][v][0] if sp[u][v] != np.inf else -np.inf for v in g.nodes} for u in g.nodes}
+    D = {u: {v: d(g, v) - sp[u][v][1] if sp[u][v] != np.inf else -np.inf for v in g.nodes} for u in g.nodes}
     return W, D
 
 
 def retime(g, r):
     gr = g.copy()
     for e in gr.edges:
-        gr.edges[e]['weight'] = gr.edges[e]['weight'] + r[e[1]] - r[e[0]]
+        try:
+            gr.edges[e]['weight'] = gr.edges[e]['weight'] + r[e[1]] - r[e[0]]
+        except Exception as exception:
+            print(exception)
+            return g
     return gr
 
 
@@ -107,4 +111,7 @@ def opt2(g):        # O(|V||E| lg|V|)
     D_range = np.unique(wd2numpy(D))
     D_range.sort()
     clock, r = __binary_search(D_range, feas, g)
-    return retime(g, r)
+    if r is not None:
+        return retime(g, r)
+    else:
+        return g
