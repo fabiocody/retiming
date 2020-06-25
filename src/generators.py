@@ -73,10 +73,10 @@ def gen_random_circuit(N=8, E=11):
     while True:
         g = nx.gnm_random_graph(N, E, directed=True)
         for v in g.nodes:
-            g.nodes[v]['weight'] = np.random.randint(1, 3)
+            g.nodes[v]['weight'] = np.random.randint(1, 10)
         g.nodes[0]['weight'] = 0
         for e in g.edges:
-            g.edges[e]['weight'] = np.random.randint(3)
+            g.edges[e]['weight'] = np.random.randint(10)
         if check_if_synchronous_circuit(g):
             condition = False
             for n in g.nodes:
