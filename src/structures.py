@@ -2,6 +2,10 @@
 
 
 class MyTuple(tuple):
+    """
+    This class is used in Algorithm WD in order to implement custom sum and comparison.
+    """
+
     def __add__(self, other):
         if isinstance(other, int) or isinstance(other, float):
             return MyTuple(x+other for x in self)
