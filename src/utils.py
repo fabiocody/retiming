@@ -26,7 +26,10 @@ def load_graph(path):
     for e in g.edges:
         for v in e[0:2]:
             v = nodes[v]
-            v['weight'] = int(v['weight'])
+            try:
+                v['weight'] = int(v['weight'])
+            except KeyError:
+                pass
         g.edges[e]['weight'] = int(g.edges[e]['weight'])
     return g
 
