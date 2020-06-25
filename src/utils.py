@@ -2,7 +2,6 @@
 
 import networkx as nx
 from networkx.drawing.nx_pydot import read_dot, write_dot
-import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -47,11 +46,6 @@ def w(g, e):
 
 def d(g, v):
     return g.nodes[v]['weight']
-
-
-def wd2numpy(m):
-    lists = [list(m[k].values()) for k in m]
-    return np.array(lists)
 
 
 def print_correlator_WD(W, D):

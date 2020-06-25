@@ -2,7 +2,7 @@
 
 import networkx as nx
 import numpy as np
-from utils import d, w, wd2numpy
+from utils import d, w
 from structures import MyTuple
 
 
@@ -29,12 +29,12 @@ def wd(g):      # O(|V|^3)
     for e in g.edges:
         g.edges[e]['weight'] = MyTuple((w(g, e), -d(g, e[0])))
     sp = nx.floyd_warshall(g)
-    for h in sp:
-        for k in sp[h]:
-            if sp[h][k] == 0:
-                sp[h][k] = MyTuple([0, 0])
-    W = {u: {v: sp[u][v][0] if sp[u][v] != np.inf else -np.inf for v in g.nodes} for u in g.nodes}
-    D = {u: {v: d(g, v) - sp[u][v][1] if sp[u][v] != np.inf else -np.inf for v in g.nodes} for u in g.nodes}
+    for u in sp:
+        for v in sp[u]:
+            if sp[u][v] == 0:
+                sp[u][v] = MyTuple((0, 0))
+    W = {(u, v): sp[u][v][0] for u in g.nodes for v in g.nodes if sp[u][v] != np.inf}
+    D = {(u, v): d(g, v) - sp[u][v][1] for u in g.nodes for v in g.nodes if sp[u][v] != np.inf}
     return W, D
 
 
@@ -65,15 +65,16 @@ def __binary_search(arr, f, g):
 
 def opt1(g):    # O(|V|^3 lg|V|)
     W, D = wd(g)
-    D_range = np.unique(wd2numpy(D))
+    D_range = np.unique(list(D.values()))
     D_range.sort()
 
     def check_th7(g, c):
         bfg = nx.MultiDiGraph()
         bfg.add_weighted_edges_from([(e[1], e[0], w(g, e)) for e in g.edges])
-        bfg.add_weighted_edges_from([(v, u, W[u][v]-1)
+        bfg.add_weighted_edges_from([(v, u, W[u, v]-1)
                                      for u in g.nodes for v in g.nodes
-                                     if D[u][v] > c and not (D[u][v] - d(g, v) > c or D[u][v] - d(g, u) > c)])
+                                     if (u, v) in W and (u, v) in D and
+                                     D[u, v] > c and not (D[u, v] - d(g, v) > c or D[u, v] - d(g, u) > c)])
         root = 'root'
         bfg.add_weighted_edges_from([(root, n, 0) for n in bfg.nodes])
         try:
@@ -103,7 +104,7 @@ def feas(g, c):     # O(|V||E|)
 
 def opt2(g):        # O(|V||E| lg|V|)
     W, D = wd(g)
-    D_range = np.unique(wd2numpy(D))
+    D_range = np.unique(list(D.values()))
     D_range.sort()
     clock, r = __binary_search(D_range, feas, g)
     if r is not None:

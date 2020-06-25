@@ -4,7 +4,7 @@ import networkx as nx
 from networkx.drawing.nx_pydot import write_dot
 import numpy as np
 from algos import cp
-from utils import add_weighted_node, check_if_synchronous_circuit, w
+from utils import add_weighted_node, check_if_synchronous_circuit
 
 
 def gen_provided_correlator(n):

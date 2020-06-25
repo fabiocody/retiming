@@ -13,7 +13,7 @@ def wd2numpy_correlator(m):
     lists = [[] for _ in order]
     for u in order:
         for v in order:
-            lists[order.index(u)].append(m[u][v])
+            lists[order.index(u)].append(m[u, v])
     return np.array(lists)
 
 
