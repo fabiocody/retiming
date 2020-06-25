@@ -15,15 +15,10 @@ def cp(g, return_delta=False):      # O(|E|)
         return clock
     g0 = g.edge_subgraph(zero_edges)
     delta = dict()
-
-    def __delta(g, v):
-        delta_v = d(g, v)
-        if g.in_degree(v) > 0:
-            delta_v += max(list(map(lambda e: delta[e[0]], g.in_edges(v))))
-        return delta_v
-
     for v in nx.topological_sort(g0):
-        delta[v] = __delta(g0, v)
+        delta[v] = d(g0, v)
+        if g0.in_degree(v) > 0:
+            delta[v] += max(list(map(lambda e: delta[e[0]], g0.in_edges(v))))
     if return_delta:
         return max(delta.values()), delta
     return max(delta.values())
