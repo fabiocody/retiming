@@ -213,6 +213,9 @@ class Tests(TestCase):
             self.assertLessEqual(cp(gr2), 14)
 
     def test_random_wd(self):
+        """
+        Check that the computed W and D matrices correspond to the definition
+        """
         for _ in range(10):
             g = gen_random_circuit()
             W, D = wd(g)

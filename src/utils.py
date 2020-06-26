@@ -40,6 +40,23 @@ def save_graph(g, path):
     write_dot(g, path)
 
 
+def __reconstruct_edges(g, u, v):
+    edges = list(filter(lambda p: len(p) == 2, nx.all_simple_paths(g, u, v)))
+    if isinstance(g, nx.MultiDiGraph):
+        key = list(map(lambda e: e[2], g.edges))[0]
+        if isinstance(key, str):
+            edges = [edges[i] + [f'{i}'] for i in range(len(edges))]
+        elif isinstance(key, int):
+            edges = [edges[i] + [i] for i in range(len(edges))]
+        else:
+            raise NotImplementedError('Keys should be either strings or integers')
+    elif isinstance(g, nx.DiGraph):
+        pass
+    else:
+        raise NotImplementedError('This function only works on (Multi)DiGraph')
+    return edges
+
+
 def w(g, e):
     return g.edges[e]['weight']
 
@@ -49,19 +66,7 @@ def w_path(g, p):
     for i in range(len(p) - 1):
         u = p[i]
         v = p[i+1]
-        edges = list(filter(lambda p: len(p) == 2, nx.all_simple_paths(g, u, v)))
-        if isinstance(g, nx.MultiDiGraph):
-            key = list(map(lambda e: e[2], g.edges))[0]
-            if isinstance(key, str):
-                edges = [edges[i] + [f'{i}'] for i in range(len(edges))]
-            elif isinstance(key, int):
-                edges = [edges[i] + [i] for i in range(len(edges))]
-            else:
-                raise NotImplementedError('Keys should be either strings or integers')
-        elif isinstance(g, nx.DiGraph):
-            pass
-        else:
-            raise NotImplementedError('This function only works on (Multi)DiGraph')
+        edges = __reconstruct_edges(g, u, v)
         wp += min(map(lambda e: g.edges[e]['weight'], edges))
     return wp
 
@@ -107,19 +112,7 @@ def check_if_synchronous_circuit(g):
         for i in range(len(nodes)):
             u = nodes[i]
             v = nodes[(i + 1) % len(nodes)]
-            paths = list(filter(lambda p: len(p) == 2, nx.all_simple_paths(g, u, v)))
-            if isinstance(g, nx.MultiDiGraph):
-                key = list(map(lambda e: e[2], g.edges))[0]
-                if isinstance(key, str):
-                    edges = [paths[i] + [f'{i}'] for i in range(len(paths))]
-                elif isinstance(key, int):
-                    edges = [paths[i] + [i] for i in range(len(paths))]
-                else:
-                    raise NotImplementedError('Keys should be either strings or integers')
-            elif isinstance(g, nx.DiGraph):
-                edges = paths
-            else:
-                raise NotImplementedError('This function only works on (Multi)DiGraph')
+            edges = __reconstruct_edges(g, u, v)
             min_cost = min(map(lambda e: g.edges[e]['weight'], edges))
             cost += min_cost
             if min_cost > 0:
