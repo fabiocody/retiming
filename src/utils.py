@@ -92,7 +92,7 @@ def print_correlator_WD(W, D):
         print()
 
 
-def get_g0(g):
+def get_g0(g):  # TODO: remove
     zero_edges = list(filter(lambda e: w(g, e) == 0, g.edges))
     return g.edge_subgraph(zero_edges)
 

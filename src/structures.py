@@ -25,14 +25,6 @@ class MyTuple(tuple):
     def __radd__(self, other):
         return self.__add__(other)
 
-    def __sub__(self, other):
-        if isinstance(other, int) or isinstance(other, float):
-            return MyTuple(x - other for x in self)
-        elif isinstance(other, tuple) and len(self) == len(other):
-            return MyTuple(x - y for x, y in zip(self, other))
-        else:
-            raise NotImplementedError()
-
     def __lt__(self, other):
         if isinstance(other, tuple) and len(self) == len(other):
             return self.__compare__(other) < 0

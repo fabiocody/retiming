@@ -89,11 +89,7 @@ def retime(g, r):
     """
     gr = g.copy()
     for e in gr.edges:
-        try:
-            gr.edges[e]['weight'] = gr.edges[e]['weight'] + r[e[1]] - r[e[0]]
-        except Exception as exception:
-            print(exception)
-            return g
+        gr.edges[e]['weight'] = gr.edges[e]['weight'] + r[e[1]] - r[e[0]]
     return gr
 
 
@@ -232,7 +228,4 @@ def opt2(g):
     # STEP 4
     # For the minimum achievable clock period found in Step 3, use the values for the r(v) found by Algorithm FEAS
     # as the optimal retiming.
-    if r is not None:
-        return retime(g, r)
-    else:   # The current clock period is already the minimum possible
-        return g
+    return retime(g, r)

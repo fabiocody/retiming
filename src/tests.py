@@ -7,7 +7,7 @@ import numpy as np
 from algos import cp, wd, opt1, feas, opt2
 from generators import gen_correlator, gen_random_circuit
 from structures import MyTuple
-from utils import load_graph, check_if_synchronous_circuit, w_path, d_path, d
+from utils import load_graph, check_if_synchronous_circuit, w_path, d_path, d, add_weighted_node
 
 
 def wd2numpy_correlator(m):
@@ -246,3 +246,15 @@ class Tests(TestCase):
             g = gen_random_circuit()
             gr = opt2(g)
             self.assertLessEqual(cp(gr), cp(g))
+
+    def test_already_minimum_graph(self):
+        g = nx.MultiDiGraph()
+        add_weighted_node(g, 'h', 0)
+        add_weighted_node(g, 'u', 2)
+        add_weighted_node(g, 'v', 3)
+        g.add_weighted_edges_from([('h', 'u', 0), ('u', 'v', 1), ('v', 'h', 1)])
+        self.assertTrue(check_if_synchronous_circuit(g))
+        gr = opt1(g)
+        self.assertEqual(cp(gr), cp(g))
+        gr = opt2(g)
+        self.assertEqual(cp(gr), cp(g))
