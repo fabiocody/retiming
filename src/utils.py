@@ -44,6 +44,32 @@ def w(g, e):
     return g.edges[e]['weight']
 
 
+def w_path(g, p):
+    wp = 0
+    for i in range(len(p) - 1):
+        u = p[i]
+        v = p[i+1]
+        edges = list(filter(lambda p: len(p) == 2, nx.all_simple_paths(g, u, v)))
+        if isinstance(g, nx.MultiDiGraph):
+            key = list(map(lambda e: e[2], g.edges))[0]
+            if isinstance(key, str):
+                edges = [edges[i] + [f'{i}'] for i in range(len(edges))]
+            elif isinstance(key, int):
+                edges = [edges[i] + [i] for i in range(len(edges))]
+            else:
+                raise NotImplementedError('Keys should be either strings or integers')
+        elif isinstance(g, nx.DiGraph):
+            pass
+        else:
+            raise NotImplementedError('This function only works on (Multi)DiGraph')
+        wp += min(map(lambda e: g.edges[e]['weight'], edges))
+    return wp
+
+
+def d_path(g, path):
+    return sum(map(lambda v: g.nodes[v]['weight'], path))
+
+
 def d(g, v):
     return g.nodes[v]['weight']
 

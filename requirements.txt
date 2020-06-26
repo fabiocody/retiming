@@ -4,3 +4,4 @@ matplotlib
 pydot
 pytest
 tqdm
+coverage

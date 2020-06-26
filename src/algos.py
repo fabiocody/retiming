@@ -21,7 +21,7 @@ def cp(g, return_delta=False):
     if len(zero_edges) == 0:    # If there is no edge in g0, then the clock period is the max d(v)
         clock = max(map(lambda n: g.nodes[n]['weight'], g.nodes))
         if return_delta:
-            return clock, {v: 0 for v in g.nodes}
+            return clock, {v: d(g, v) for v in g.nodes}
         return clock
     g0 = g.edge_subgraph(zero_edges)
     delta = dict()

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 from unittest import TestCase
+
+import networkx as nx
 import numpy as np
 from algos import cp, wd, opt1, feas, opt2
 from generators import gen_correlator, gen_random_circuit
 from structures import MyTuple
-from utils import load_graph, check_if_synchronous_circuit
+from utils import load_graph, check_if_synchronous_circuit, w_path, d_path, d
 
 
 def wd2numpy_correlator(m):
@@ -209,6 +211,20 @@ class Tests(TestCase):
             gr2 = opt2(g)
             self.assertLessEqual(cp(gr1), 14)
             self.assertLessEqual(cp(gr2), 14)
+
+    def test_random_wd(self):
+        for _ in range(10):
+            g = gen_random_circuit()
+            W, D = wd(g)
+            for u in g.nodes:
+                for v in g.nodes:
+                    if nx.has_path(g, u, v):
+                        if u == v:
+                            self.assertEqual(W[u, v], 0)
+                            self.assertEqual(D[u, v], d(g, u))
+                        else:
+                            self.assertEqual(W[u, v], min([w_path(g, p) for p in nx.all_simple_paths(g, u, v)]))
+                            self.assertEqual(D[u, v], max([d_path(g, p) for p in nx.all_simple_paths(g, u, v) if w_path(g, p) == W[u, v]]))
 
     def test_random_opt1(self):
         """

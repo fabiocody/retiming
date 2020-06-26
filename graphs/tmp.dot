@@ -1,0 +1,21 @@
+strict digraph  {
+0 [weight=0];
+1 [weight=2];
+2 [weight=7];
+3 [weight=4];
+4 [weight=8];
+5 [weight=3];
+6 [weight=6];
+7 [weight=7];
+0 -> 7  [label=1, weight=1];
+1 -> 6  [label=6, weight=6];
+2 -> 1  [label=6, weight=6];
+3 -> 2  [label=2, weight=2];
+4 -> 0  [label=0, weight=0];
+4 -> 7  [label=2, weight=2];
+5 -> 4  [label=8, weight=8];
+5 -> 3  [label=6, weight=6];
+6 -> 5  [label=0, weight=0];
+7 -> 3  [label=9, weight=9];
+7 -> 6  [label=1, weight=1];
+}

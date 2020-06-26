@@ -4,7 +4,7 @@ import networkx as nx
 from networkx.drawing.nx_pydot import write_dot
 import numpy as np
 from algos import cp
-from utils import add_weighted_node, check_if_synchronous_circuit
+from utils import add_weighted_node, check_if_synchronous_circuit, w
 
 
 def gen_provided_correlator(n):
@@ -86,6 +86,8 @@ def gen_random_circuit(N=8, E=11):
             if condition:
                 continue
             if g.out_degree(0) == 0:
+                continue
+            if len(list(filter(lambda e: w(g, e) == 0, g.edges))) == 0:
                 continue
             node_weights = list(map(lambda n: g.nodes[n]['weight'], g.nodes))
             if cp(g) <= max(node_weights):

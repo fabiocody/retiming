@@ -3,7 +3,7 @@
 import networkx as nx
 from algos import opt1, opt2, cp, wd
 from generators import gen_random_circuit, gen_correlator
-from utils import load_graph, draw_graph, check_if_synchronous_circuit, save_graph
+from utils import load_graph, draw_graph, check_if_synchronous_circuit, save_graph, w_path, d_path, d
 
 
 if __name__ == '__main__':
@@ -16,7 +16,7 @@ if __name__ == '__main__':
         cpg = cp(g)
         cpgr1 = cp(gr1)
         cpgr2 = cp(gr2)
-        if cpgr1 > cpg or cpgr2 > cpg:
+        if cpgr1 != cpgr2 and (cpgr1 > cpg or cpgr2 > cpg):
             print('\n', cpg, cpgr1, cpgr2)
             wd(g)
             gr12 = opt1(g)
