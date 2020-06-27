@@ -10,6 +10,9 @@ def cp(g, return_delta=False):
     """Algorithm CP [O(|E|)]
     Compute the clock period of a synchronous circuit.
 
+    Time complexity:    O(E)
+    Space complexity:   O(V + E)
+
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :param return_delta: Whether to return the computed ∆ or not (used in other algorithms)
     :return: the clock period of the given circuit
@@ -18,12 +21,9 @@ def cp(g, return_delta=False):
     # STEP 1
     # Let G0 be the sub-graph of G that contains precisely those edges e with register count w(e) = 0.
     zero_edges = list(filter(lambda e: w(g, e) == 0, g.edges))
-    if len(zero_edges) == 0:    # If there is no edge in g0, then the clock period is the max d(v)
-        clock = max(map(lambda n: g.nodes[n]['weight'], g.nodes))
-        if return_delta:
-            return clock, {v: d(g, v) for v in g.nodes}
-        return clock
-    g0 = g.edge_subgraph(zero_edges)
+    g0 = nx.MultiDiGraph()
+    g0.add_nodes_from(g.nodes(data=True))
+    g0.add_edges_from(zero_edges)
     delta = dict()
 
     # STEP 2
@@ -47,10 +47,13 @@ def cp(g, return_delta=False):
 
 
 def wd(g):
-    """Algorithm WD [O(|V|^3)]
+    """Algorithm WD
     Compute W and D.
     Given a synchronous circuit G, this algorithm computes W(u, v) and D(u, v) for all u,v in V such that
     u is connected to v in G.
+
+    Time complexity:    O(V^3)
+    Space complexity:   O(V^2)
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :return: Matrices W and D in the form dict<(u,v), int>
@@ -81,7 +84,7 @@ def wd(g):
 
 
 def retime(g, r):
-    """Compute the retimed graph. [O(|E|)]
+    """Compute the retimed graph.
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :param r: The retiming function r: V -> Z to be applied
@@ -115,10 +118,13 @@ def __binary_search(arr, f, g):
 
 
 def opt1(g):
-    """Algorithm OPT1 [O(|V|^3 lg|V|)]
+    """Algorithm OPT1
     Clock period minimization.
     Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
     as possible.
+
+    Time complexity:    O(V^3 lg V)
+    Space complexity:   O(V^2)
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :return: The retimed graph having the smallest possible clock period
@@ -160,10 +166,13 @@ def opt1(g):
 
 
 def feas(g, c):
-    """Algorithm FEAS [O(|V||E|)]
+    """Algorithm FEAS
     Feasible clock period test.
     Given a synchronous circuit G and a desired clock period c, this algorithm produces a retiming r of G such that
     Gr is a synchronous circuit with clock period not greater than c, if such retiming exists.
+
+    Time complexity:    O(VE)
+    Space complexity:   O(V + E)
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :param c: The desired clock period
@@ -202,10 +211,13 @@ def feas(g, c):
 
 
 def opt2(g):
-    """Algorithm OPT2 [O(|V||E| lg|V|)]
+    """Algorithm OPT2
     Clock period minimization.
     Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
     as possible.
+
+    Time complexity:    O(VE lg V)
+    Space complexity:   O(V^2)
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :return: The retimed graph having the smallest possible clock period

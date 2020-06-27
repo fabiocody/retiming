@@ -228,6 +228,9 @@ class Tests(TestCase):
                         else:
                             self.assertEqual(W[u, v], min([w_path(g, p) for p in nx.all_simple_paths(g, u, v)]))
                             self.assertEqual(D[u, v], max([d_path(g, p) for p in nx.all_simple_paths(g, u, v) if w_path(g, p) == W[u, v]]))
+                    else:
+                        self.assertFalse((u, v) in W)
+                        self.assertFalse((u, v) in D)
 
     def test_random_opt1(self):
         """

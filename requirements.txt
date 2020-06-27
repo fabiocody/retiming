@@ -5,3 +5,4 @@ pydot
 pytest
 tqdm
 coverage
+big_o
