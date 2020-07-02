@@ -1,4 +1,4 @@
-structures module
+Custom structures
 =================
 
 .. automodule:: structures

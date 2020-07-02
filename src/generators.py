@@ -7,6 +7,13 @@ from utils import add_weighted_node, check_if_synchronous_circuit, w
 
 
 def gen_provided_correlator(n):
+    """
+    Generate a correlator circuit like the ones described in the paper.
+
+    :param n: the values 1 or 2, depending on which correlator you want to generate
+    :return: the generated graph
+    """
+
     g = nx.MultiDiGraph()
     add_weighted_node(g, 'h', 0)
     add_weighted_node(g, 'd0', 3)
@@ -52,6 +59,12 @@ def gen_provided_correlator(n):
 
 
 def gen_correlator(k):
+    """
+    Generate a correlator or order :math:`k`.
+
+    :param k: the order of the correlator
+    :return: the generated graph
+    """
     assert k >= 1, 'k should be greater than or equal to 1'
     g = nx.DiGraph()
     add_weighted_node(g, 'h', 0)
@@ -69,6 +82,13 @@ def gen_correlator(k):
 
 
 def gen_random_circuit(V=8, E=11):
+    """
+    Generate a random synchronous circuit.
+
+    :param V: the number of nodes
+    :param E: the number of edges
+    :return: the generated graph
+    """
     while True:
         g = nx.gnm_random_graph(V, E, directed=True)
         for v in g.nodes:

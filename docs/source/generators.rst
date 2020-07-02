@@ -1,5 +1,5 @@
-generators module
-=================
+Generators
+==========
 
 .. automodule:: generators
    :members:

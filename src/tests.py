@@ -11,6 +11,12 @@ from utils import load_graph, check_if_synchronous_circuit, w_path, d_path, d, a
 
 
 def wd2numpy_correlator(m):
+    """
+    Transform a W or D matrix return from Algorithm WD into a 2D numpy array.
+
+    :param m: W or D matrix as returned from Algorithm WD
+    :return: the numpy version of the provided matrix
+    """
     order = ['h', 'd0', 'd1', 'd2', 'd3', 'p2', 'p1', 'p0']
     lists = [[] for _ in order]
     for u in order:
@@ -251,6 +257,9 @@ class Tests(TestCase):
             self.assertLessEqual(cp(gr), cp(g))
 
     def test_already_minimum_graph(self):
+        """
+        Check that Algorithms OPT1 and OPT2 work on already minimum graphs.
+        """
         g = nx.MultiDiGraph()
         add_weighted_node(g, 'h', 0)
         add_weighted_node(g, 'u', 2)

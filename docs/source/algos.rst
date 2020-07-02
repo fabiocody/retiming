@@ -1,5 +1,5 @@
-algos module
-============
+Algorithms
+==========
 
 .. automodule:: algos
    :members:

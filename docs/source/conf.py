@@ -34,6 +34,7 @@ author = 'Fabio Codiglioni'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.imgmath',
+    'sphinx.ext.githubpages',
     'sphinx_rtd_theme'
 ]
 
