@@ -129,11 +129,11 @@ def opt1(g):
     Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
     as possible.
 
-    +------------------+----------------------+
-    | Time complexity  | :math:`O(V^3 \lg V)` |
-    +------------------+----------------------+
-    | Space complexity | :math:`O(V^2)`       |
-    +------------------+----------------------+
+    +------------------+-----------------------+
+    | Time complexity  | :math:`O(V^3 \log V)` |
+    +------------------+-----------------------+
+    | Space complexity | :math:`O(V^2)`        |
+    +------------------+-----------------------+
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :return: The retimed graph having the smallest possible clock period
@@ -226,11 +226,11 @@ def opt2(g):
     Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
     as possible.
 
-    +------------------+---------------------+
-    | Time complexity  | :math:`O(VE \lg V)` |
-    +------------------+---------------------+
-    | Space complexity | :math:`O(V^2)`      |
-    +------------------+---------------------+
+    +------------------+----------------------+
+    | Time complexity  | :math:`O(VE \log V)` |
+    +------------------+----------------------+
+    | Space complexity | :math:`O(V^2)`       |
+    +------------------+----------------------+
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :return: The retimed graph having the smallest possible clock period
