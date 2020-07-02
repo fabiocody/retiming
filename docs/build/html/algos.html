@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Algorithms &mdash; Retiming Synchronous Circuits  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Generators" href="generators.html" />
+    <link rel="prev" title="Retiming Synchronous Circuits Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Retiming Synchronous Circuits
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generators.html">Generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structures.html">Custom structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Retiming Synchronous Circuits</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Algorithms</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/algos.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-algos">
+<span id="algorithms"></span><h1>Algorithms<a class="headerlink" href="#module-algos" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="algos.cp">
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">cp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">return_delta</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.cp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the clock period of a synchronous circuit.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Time complexity</p></td>
+<td><p><img class="math" src="_images/math/82e30d0865206655902f2c4094451c5525c59426.png" alt="O(E)"/></p></td>
+</tr>
+<tr class="row-even"><td><p>Space complexity</p></td>
+<td><p><img class="math" src="_images/math/50d6e12992676d5f861cd6939db7d2e1b26816fc.png" alt="O(V + E)"/></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p></li>
+<li><p><strong>return_delta</strong> – Whether to return the computed ∆ or not (used in other algorithms)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the clock period of the given circuit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="algos.feas">
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">feas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">c</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.feas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a synchronous circuit G and a desired clock period c, this algorithm produces a retiming r of G such that
+Gr is a synchronous circuit with clock period not greater than c, if such retiming exists.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Time complexity</p></td>
+<td><p><img class="math" src="_images/math/e343a57231fdf010a2fcfca321f03843d04f49cf.png" alt="O(VE)"/></p></td>
+</tr>
+<tr class="row-even"><td><p>Space complexity</p></td>
+<td><p><img class="math" src="_images/math/50d6e12992676d5f861cd6939db7d2e1b26816fc.png" alt="O(V + E)"/></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p></li>
+<li><p><strong>c</strong> – The desired clock period</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The retiming function or None if c is not feasible</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="algos.opt1">
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">opt1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.opt1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
+as possible.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Time complexity</p></td>
+<td><p><img class="math" src="_images/math/ebeda2882e4aa53e90ba9d6efe695bd5bea5e1c6.png" alt="O(V^3 \lg V)"/></p></td>
+</tr>
+<tr class="row-even"><td><p>Space complexity</p></td>
+<td><p><img class="math" src="_images/math/27636b80b983f8e16eac13a9a0a9ae59dca424eb.png" alt="O(V^2)"/></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The retimed graph having the smallest possible clock period</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="algos.opt2">
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">opt2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.opt2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
+as possible.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Time complexity</p></td>
+<td><p><img class="math" src="_images/math/41d069af58b98962b0583906028cd32485b4a803.png" alt="O(VE \lg V)"/></p></td>
+</tr>
+<tr class="row-even"><td><p>Space complexity</p></td>
+<td><p><img class="math" src="_images/math/27636b80b983f8e16eac13a9a0a9ae59dca424eb.png" alt="O(V^2)"/></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The retimed graph having the smallest possible clock period</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="algos.retime">
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">retime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">r</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.retime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the retimed graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p></li>
+<li><p><strong>r</strong> – The retiming function r: V -&gt; Z to be applied</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The retimed graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="algos.wd">
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">wd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.wd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a synchronous circuit G, this algorithm computes W(u, v) and D(u, v) for all u,v in V such that
+u is connected to v in G.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Time complexity</p></td>
+<td><p><img class="math" src="_images/math/7e86d9ea18ff1ad02e0858ec9cabb498f68ba37c.png" alt="O(V^3)"/></p></td>
+</tr>
+<tr class="row-even"><td><p>Space complexity</p></td>
+<td><p><img class="math" src="_images/math/27636b80b983f8e16eac13a9a0a9ae59dca424eb.png" alt="O(V^2)"/></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matrices W and D in the form dict&lt;(u,v), int&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="generators.html" class="btn btn-neutral float-right" title="Generators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Retiming Synchronous Circuits Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Fabio Codiglioni
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
