@@ -206,7 +206,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-#docs/_build/
+docs/_build/
 
 # PyBuilder
 target/
@@ -319,3 +319,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,python,venv,pycharm+all,visualstudiocode
+
+!docs/build
