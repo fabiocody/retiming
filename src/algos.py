@@ -7,11 +7,12 @@ from structures import MyTuple
 
 
 def cp(g, return_delta=False):
-    """Algorithm CP [O(|E|)]
+    """
     Compute the clock period of a synchronous circuit.
 
-    Time complexity:    O(E)
-    Space complexity:   O(V + E)
+    Time complexity:    :math:`O(E)`
+
+    Space complexity:   :math:`O(V + E)`
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :param return_delta: Whether to return the computed ∆ or not (used in other algorithms)
@@ -47,13 +48,13 @@ def cp(g, return_delta=False):
 
 
 def wd(g):
-    """Algorithm WD
-    Compute W and D.
+    """
     Given a synchronous circuit G, this algorithm computes W(u, v) and D(u, v) for all u,v in V such that
     u is connected to v in G.
 
-    Time complexity:    O(V^3)
-    Space complexity:   O(V^2)
+    Time complexity:    :math:`O(V^3)`
+
+    Space complexity:   :math:`O(V^2)`
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :return: Matrices W and D in the form dict<(u,v), int>
@@ -84,7 +85,8 @@ def wd(g):
 
 
 def retime(g, r):
-    """Compute the retimed graph.
+    """
+    Compute the retimed graph.
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :param r: The retiming function r: V -> Z to be applied
@@ -97,7 +99,8 @@ def retime(g, r):
 
 
 def __binary_search(arr, f, g):
-    """Perform the binary search in order to find the minimum feasible value of c inside arr.
+    """
+    Perform the binary search in order to find the minimum feasible value of c inside arr.
 
     :param arr: The array on which to perform the binary search
     :param f: Function to be applied to g and arr[mid] (check_th7 or feas)
@@ -118,13 +121,13 @@ def __binary_search(arr, f, g):
 
 
 def opt1(g):
-    """Algorithm OPT1
-    Clock period minimization.
+    """
     Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
     as possible.
 
-    Time complexity:    O(V^3 lg V)
-    Space complexity:   O(V^2)
+    Time complexity:    :math:`O(V^3 \lg V)`
+
+    Space complexity:   :math:`O(V^2)`
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :return: The retimed graph having the smallest possible clock period
@@ -166,13 +169,13 @@ def opt1(g):
 
 
 def feas(g, c):
-    """Algorithm FEAS
-    Feasible clock period test.
+    """
     Given a synchronous circuit G and a desired clock period c, this algorithm produces a retiming r of G such that
     Gr is a synchronous circuit with clock period not greater than c, if such retiming exists.
 
-    Time complexity:    O(VE)
-    Space complexity:   O(V + E)
+    Time complexity:    :math:`O(VE)`
+
+    Space complexity:   :math:`O(V + E)`
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :param c: The desired clock period
@@ -211,13 +214,13 @@ def feas(g, c):
 
 
 def opt2(g):
-    """Algorithm OPT2
-    Clock period minimization.
+    """
     Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
     as possible.
 
-    Time complexity:    O(VE lg V)
-    Space complexity:   O(V^2)
+    Time complexity:    :math:`O(VE \lg V)`
+
+    Space complexity:   :math:`O(V^2)`
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit
     :return: The retimed graph having the smallest possible clock period

@@ -6,3 +6,5 @@ pytest
 tqdm
 coverage
 big_o
+sphinx
+sphinx-rtd-theme
