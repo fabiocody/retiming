@@ -60,7 +60,7 @@ def gen_provided_correlator(n):
 
 def gen_correlator(k):
     """
-    Generate a correlator or order :math:`k`.
+    Generate a correlator of order :math:`k`.
 
     :param k: the order of the correlator
     :return: the generated graph
