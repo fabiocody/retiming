@@ -43,5 +43,16 @@ def check_time_complexity():
     print(' ', best, end='\n\n')
 
 
+def infinite_test():
+    i = 0
+    while True:
+        print(i, end='\r')
+        g = gen_random_circuit()
+        cpr1 = cp(opt1(g))
+        cpr2 = cp(opt2(g))
+        assert cpr1 == cpr2 and cpr1 <= cp(g)
+        i += 1
+
+
 if __name__ == '__main__':
     check_time_complexity()
