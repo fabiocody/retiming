@@ -4,7 +4,7 @@ from big_o import big_o
 import numpy as np
 from tqdm import trange
 from algos import cp, wd, opt1, feas, opt2
-from generators import gen_random_circuit, gen_correlator
+from generators import gen_random_circuit
 
 
 def check_time_complexity():
