@@ -15,8 +15,8 @@ def draw_graph(g, weights=False):
     plt.show()
 
 
-def add_weighted_node(g, n, w):
-    g.add_node(n, weight=w)
+def add_weighted_node(g, n, weight):
+    g.add_node(n, weight=weight)
 
 
 def load_graph(path):
@@ -41,6 +41,14 @@ def save_graph(g, path):
 
 
 def __reconstruct_edges(g, u, v):
+    """
+    Compute all paths between two nodes and fix the labelling for MultiDiGraphs.
+
+    :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit.
+    :param u: The first of the two nodes.
+    :param v: The second of the two nodes.
+    :return: The list of paths with the labels fixed.
+    """
     edges = list(filter(lambda p: len(p) == 2, nx.all_simple_paths(g, u, v)))
     if isinstance(g, nx.MultiDiGraph):
         key = list(map(lambda e: e[2], g.edges))[0]
@@ -61,6 +69,10 @@ def w(g, e):
     return g.edges[e]['weight']
 
 
+def d(g, v):
+    return g.nodes[v]['weight']
+
+
 def w_path(g, p):
     wp = 0
     for i in range(len(p) - 1):
@@ -73,28 +85,6 @@ def w_path(g, p):
 
 def d_path(g, path):
     return sum(map(lambda v: g.nodes[v]['weight'], path))
-
-
-def d(g, v):
-    return g.nodes[v]['weight']
-
-
-def print_correlator_WD(W, D):
-    order = ['h', 'd0', 'd1', 'd2', 'd3', 'p2', 'p1', 'p0']
-    for u in order:
-        for v in order:
-            print(W[u][v], end=' ')
-        print()
-    print()
-    for u in order:
-        for v in order:
-            print(f'{D[u][v]:2d}', end=' ')
-        print()
-
-
-def get_g0(g):  # TODO: remove
-    zero_edges = list(filter(lambda e: w(g, e) == 0, g.edges))
-    return g.edge_subgraph(zero_edges)
 
 
 def check_if_synchronous_circuit(g):

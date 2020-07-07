@@ -175,12 +175,12 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p></li>
-<li><p><strong>return_delta</strong> – Whether to return the computed ∆ or not (used in other algorithms)</p></li>
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p></li>
+<li><p><strong>return_delta</strong> – Whether to return the computed <img class="math" src="_images/math/6450616b75212cb568e905db49efd0c3dd584648.png" alt="\Delta"/> or not (used in other algorithms).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the clock period of the given circuit</p>
+<dd class="field-even"><p>The clock period of the given circuit.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -188,8 +188,9 @@
 <dl class="py function">
 <dt id="algos.feas">
 <code class="sig-prename descclassname">algos.</code><code class="sig-name descname">feas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">c</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.feas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a synchronous circuit G and a desired clock period c, this algorithm produces a retiming r of G such that
-Gr is a synchronous circuit with clock period not greater than c, if such retiming exists.</p>
+<dd><p>Given a synchronous circuit <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/> and a desired clock period <img class="math" src="_images/math/d520a12f1579170834c32ad5f656de081bbb36fe.png" alt="c"/>, this algorithm produces a retiming
+<img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> of <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/> such that <img class="math" src="_images/math/7b98722260306da607db691cec74a88dbb49fa53.png" alt="G_r"/> is a synchronous circuit with clock period not greater than <img class="math" src="_images/math/d520a12f1579170834c32ad5f656de081bbb36fe.png" alt="c"/>,
+if such retiming exists.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -207,12 +208,12 @@ Gr is a synchronous circuit with clock period not greater than c, if such retimi
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p></li>
-<li><p><strong>c</strong> – The desired clock period</p></li>
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p></li>
+<li><p><strong>c</strong> – The desired clock period.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The retiming function or None if c is not feasible</p>
+<dd class="field-even"><p>The retiming function or <code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">c</span></code> is not feasible.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -220,8 +221,8 @@ Gr is a synchronous circuit with clock period not greater than c, if such retimi
 <dl class="py function">
 <dt id="algos.opt1">
 <code class="sig-prename descclassname">algos.</code><code class="sig-name descname">opt1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.opt1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
-as possible.</p>
+<dd><p>Given a synchronous circuit <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/>, this algorithm determines a retiming <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> such that the clock period of
+<img class="math" src="_images/math/7b98722260306da607db691cec74a88dbb49fa53.png" alt="G_r"/> is as small as possible.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 44%" />
@@ -238,10 +239,10 @@ as possible.</p>
 </table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p>
+<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The retimed graph having the smallest possible clock period</p>
+<dd class="field-even"><p>The retimed graph having the smallest possible clock period.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -249,8 +250,8 @@ as possible.</p>
 <dl class="py function">
 <dt id="algos.opt2">
 <code class="sig-prename descclassname">algos.</code><code class="sig-name descname">opt2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.opt2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a synchronous circuit G, this algorithm determines a retiming r such that the clock period of Gr is as small
-as possible.</p>
+<dd><p>Given a synchronous circuit <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/>, this algorithm determines a retiming <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> such that the clock period of
+<img class="math" src="_images/math/7b98722260306da607db691cec74a88dbb49fa53.png" alt="G_r"/> is as smallas possible.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 45%" />
@@ -267,10 +268,10 @@ as possible.</p>
 </table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p>
+<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The retimed graph having the smallest possible clock period</p>
+<dd class="field-even"><p>The retimed graph having the smallest possible clock period.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -282,12 +283,12 @@ as possible.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p></li>
-<li><p><strong>r</strong> – The retiming function r: V -&gt; Z to be applied</p></li>
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p></li>
+<li><p><strong>r</strong> – The retiming function <img class="math" src="_images/math/fa006c35aeda3a29fcb413de3efedf400c268c4c.png" alt="r: V \mapsto Z"/> to be applied.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The retimed graph</p>
+<dd class="field-even"><p>The retimed graph.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -295,8 +296,8 @@ as possible.</p>
 <dl class="py function">
 <dt id="algos.wd">
 <code class="sig-prename descclassname">algos.</code><code class="sig-name descname">wd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.wd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a synchronous circuit G, this algorithm computes W(u, v) and D(u, v) for all u,v in V such that
-u is connected to v in G.</p>
+<dd><p>Given a synchronous circuit <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/>, this algorithm computes <img class="math" src="_images/math/a9ada90c284acb18a69c76113ff58cea2e63fddd.png" alt="W(u, v)"/> and <img class="math" src="_images/math/8d4ec541a1c4dd220c637dff63e537ee0867bc0b.png" alt="D(u, v)"/> for all
+<img class="math" src="_images/math/44de5cc9c2bfad08280ebbd458f43ef15b41a96e.png" alt="u,v \in V"/> such that <img class="math" src="_images/math/9b444cf6329a14140aee8ff5a06ff30772cc1c2f.png" alt="u"/> is connected to <img class="math" src="_images/math/02d98909b5d6acd6a7ff927d4d42790bdd407d58.png" alt="v"/> in <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/>.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 53%" />
@@ -313,10 +314,10 @@ u is connected to v in G.</p>
 </table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit</p>
+<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Matrices W and D in the form dict&lt;(u,v), int&gt;</p>
+<dd class="field-even"><p>Matrices W and D in the form <code class="docutils literal notranslate"><span class="pre">dict&lt;(u,v),</span> <span class="pre">int&gt;</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>

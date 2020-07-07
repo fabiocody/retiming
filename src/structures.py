@@ -3,16 +3,8 @@
 
 class MyTuple(tuple):
     """
-    This class is used in Algorithm WD in order to implement custom sum and comparison.
+    This class is used in *Algorithm WD* in order to implement custom sum and comparison.
     """
-
-    def __compare__(self, other):
-        assert isinstance(other, tuple) and len(self) == len(other)
-        for i in range(len(self)):
-            diff = self[i] - other[i]
-            if diff != 0:
-                return diff
-        return 0
 
     def __add__(self, other):
         if isinstance(other, int) or isinstance(other, float):
@@ -24,6 +16,14 @@ class MyTuple(tuple):
 
     def __radd__(self, other):
         return self.__add__(other)
+
+    def __compare__(self, other):
+        assert isinstance(other, tuple) and len(self) == len(other)
+        for i in range(len(self)):
+            diff = self[i] - other[i]
+            if diff != 0:
+                return diff
+        return 0
 
     def __lt__(self, other):
         if isinstance(other, tuple) and len(self) == len(other):

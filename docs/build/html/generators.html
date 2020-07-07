@@ -156,45 +156,52 @@
 <span id="generators"></span><h1>Generators<a class="headerlink" href="#module-generators" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="generators.gen_correlator">
-<code class="sig-prename descclassname">generators.</code><code class="sig-name descname">gen_correlator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generators.gen_correlator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">generators.</code><code class="sig-name descname">gen_correlator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generators.gen_correlator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a correlator of order <img class="math" src="_images/math/9630132210b904754c9ab272b61cb527d12263ca.png" alt="k"/>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>k</strong> – the order of the correlator</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> – The order of the correlator.</p></li>
+<li><p><strong>save</strong> – Whether to save the generated graph or not.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the generated graph</p>
+<dd class="field-even"><p>The generated graph.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="generators.gen_provided_correlator">
-<code class="sig-prename descclassname">generators.</code><code class="sig-name descname">gen_provided_correlator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generators.gen_provided_correlator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">generators.</code><code class="sig-name descname">gen_provided_correlator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generators.gen_provided_correlator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a correlator circuit like the ones described in the paper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>n</strong> – the values 1 or 2, depending on which correlator you want to generate</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The values 1 or 2, depending on which correlator you want to generate.</p></li>
+<li><p><strong>save</strong> – Whether to save the generated graph or not.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the generated graph</p>
+<dd class="field-even"><p>The generated graph.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="generators.gen_random_circuit">
-<code class="sig-prename descclassname">generators.</code><code class="sig-name descname">gen_random_circuit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">V</span><span class="o">=</span><span class="default_value">8</span></em>, <em class="sig-param"><span class="n">E</span><span class="o">=</span><span class="default_value">11</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generators.gen_random_circuit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">generators.</code><code class="sig-name descname">gen_random_circuit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">V</span><span class="o">=</span><span class="default_value">8</span></em>, <em class="sig-param"><span class="n">E</span><span class="o">=</span><span class="default_value">11</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generators.gen_random_circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a random synchronous circuit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>V</strong> – the number of nodes</p></li>
-<li><p><strong>E</strong> – the number of edges</p></li>
+<li><p><strong>V</strong> – The number of nodes.</p></li>
+<li><p><strong>E</strong> – The number of edges.</p></li>
+<li><p><strong>save</strong> – If different from <code class="docutils literal notranslate"><span class="pre">None</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, the path where to save the generated graph.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the generated graph</p>
+<dd class="field-even"><p>The generated graph.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-from unittest import TestCase
-
 import networkx as nx
 import numpy as np
+from unittest import TestCase
 from algos import cp, wd, opt1, feas, opt2
 from generators import gen_correlator, gen_random_circuit
 from structures import MyTuple
@@ -12,10 +11,10 @@ from utils import load_graph, check_if_synchronous_circuit, w_path, d_path, d, a
 
 def wd2numpy_correlator(m):
     """
-    Transform WD matrices of correlator1 into a 2D numpy array.
+    Transform matrix :math:`W` or :math:`D` of correlator1 into a 2D numpy array.
 
-    :param m: W or D matrix as returned from Algorithm WD
-    :return: the numpy version of the provided matrix
+    :param m: matrix :math:`W` or :math:`D` as returned by *Algorithm WD*.
+    :return: the numpy version of the provided matrix.
     """
     order = ['h', 'd0', 'd1', 'd2', 'd3', 'p2', 'p1', 'p0']
     lists = [[] for _ in order]
@@ -45,7 +44,7 @@ class Tests(TestCase):
 
     def test_correlator1_wd(self):
         """
-        Check that matrices W and D of correlator1 correspond to the ones stated in the paper.
+        Check that matrices :math:`W` and :math:`D` of correlator1 correspond to the ones stated in the paper.
         """
         W_test = np.array([
             [0, 1, 2, 3, 4, 3, 2, 1],
@@ -76,7 +75,7 @@ class Tests(TestCase):
 
     def test_correlator1_opt1(self):
         """
-        Check that Algorithm OPT1 applied to correlator1 produces a clock period of 13.
+        Check that *Algorithm OPT1* applied to correlator1 produces a clock period of 13.
         """
         g = load_graph('../graphs/correlator1.dot')
         gr = opt1(g)
@@ -84,7 +83,7 @@ class Tests(TestCase):
 
     def test_correlator2_opt1(self):
         """
-        Check that Algorithm OPT1 applied to correlator2 produces a clock period of 13.
+        Check that *Algorithm OPT1* applied to correlator2 produces a clock period of 13.
         """
         g = load_graph('../graphs/correlator2.dot')
         gr = opt1(g)
@@ -92,7 +91,7 @@ class Tests(TestCase):
 
     def test_correlator1_feas(self):
         """
-        Check that 13 is a feasible clock period for correlator1 with Algorithm FEAS.
+        Check that 13 is a feasible clock period for correlator1 with *Algorithm FEAS*.
         """
         g = load_graph('../graphs/correlator1.dot')
         r = feas(g, 13)
@@ -100,7 +99,7 @@ class Tests(TestCase):
 
     def test_correlator2_feas(self):
         """
-        Check that 13 is a feasible clock period for correlator2 with Algorithm FEAS.
+        Check that 13 is a feasible clock period for correlator2 with *Algorithm FEAS*.
         """
         g = load_graph('../graphs/correlator2.dot')
         r = feas(g, 13)
@@ -108,7 +107,7 @@ class Tests(TestCase):
 
     def test_correlator1_opt2(self):
         """
-        Check that Algorithm OPT2 applied to correlator1 produces a clock period of 13.
+        Check that *Algorithm OPT2* applied to correlator1 produces a clock period of 13.
         """
         g = load_graph('../graphs/correlator1.dot')
         gr = opt2(g)
@@ -116,7 +115,7 @@ class Tests(TestCase):
 
     def test_correlator2_opt2(self):
         """
-        Check that Algorithm OPT2 applied to correlator2 produces a clock period of 13.
+        Check that *Algorithm OPT2* applied to correlator2 produces a clock period of 13.
         """
         g = load_graph('../graphs/correlator2.dot')
         gr = opt2(g)
@@ -124,7 +123,7 @@ class Tests(TestCase):
 
     def test_MyTuple(self):
         """
-        Check that MyTuple behaves as expected.
+        Check that ``MyTuple`` behaves as expected.
         """
         t1 = MyTuple((1, 2, 3))
         t2 = MyTuple((1, 2, 3))
@@ -176,7 +175,7 @@ class Tests(TestCase):
 
     def test_correlator1_retimed_opt1_synchronous_circuit(self):
         """
-        Check that the circuit retimed with Algorithm OPT1 starting from correlator1 is actually a synchronous circuit.
+        Check that the circuit retimed with *Algorithm OPT1* starting from correlator1 is actually a synchronous circuit.
         """
         g = load_graph('../graphs/correlator1.dot')
         gr = opt1(g)
@@ -184,7 +183,7 @@ class Tests(TestCase):
 
     def test_correlator1_retimed_opt2_synchronous_circuit(self):
         """
-        Check that the circuit retimed with Algorithm OPT2 starting from correlator1 is actually a synchronous circuit.
+        Check that the circuit retimed with *Algorithm OPT2* starting from correlator1 is actually a synchronous circuit.
         """
         g = load_graph('../graphs/correlator1.dot')
         gr = opt2(g)
@@ -192,7 +191,7 @@ class Tests(TestCase):
 
     def test_correlator2_retimed_opt1_synchronous_circuit(self):
         """
-        Check that the circuit retimed with Algorithm OPT1 starting from correlator2 is actually a synchronous circuit.
+        Check that the circuit retimed with *Algorithm OPT1* starting from correlator2 is actually a synchronous circuit.
         """
         g = load_graph('../graphs/correlator2.dot')
         gr = opt1(g)
@@ -200,7 +199,7 @@ class Tests(TestCase):
 
     def test_correlator2_retimed_opt2_synchronous_circuit(self):
         """
-        Check that the circuit retimed with Algorithm OPT2 starting from correlator2 is actually a synchronous circuit.
+        Check that the circuit retimed with *Algorithm OPT2* starting from correlator2 is actually a synchronous circuit.
         """
         g = load_graph('../graphs/correlator2.dot')
         gr = opt2(g)
@@ -208,8 +207,8 @@ class Tests(TestCase):
 
     def test_correlators(self):
         """
-        Check that all the correlators of order 1 <= k <= 15 optimized either with Algorithm OPT1 or OPT2 have a
-        clock period not greater that 14.
+        Check that all the correlators of order :math:`1 \leq k \leq 15` optimized either with *Algorithm OPT1* or
+        *OPT2* have a clock period not greater that 14.
         """
         for i in range(1, 16):
             g = gen_correlator(i)
@@ -220,7 +219,7 @@ class Tests(TestCase):
 
     def test_random_wd(self):
         """
-        Check that the computed W and D matrices correspond to the definition
+        Check that the computed :math:`W` and :math:`D` matrices correspond to the definition.
         """
         for _ in range(10):
             g = gen_random_circuit()
@@ -240,7 +239,7 @@ class Tests(TestCase):
 
     def test_random_opt1(self):
         """
-        Check that Algorithm OPT1 works on 10 randomly generated synchronous circuits.
+        Check that *Algorithm OPT1* works on 10 randomly generated synchronous circuits.
         """
         for _ in range(10):
             g = gen_random_circuit()
@@ -249,7 +248,7 @@ class Tests(TestCase):
 
     def test_random_opt2(self):
         """
-        Check that Algorithm OPT2 works on 10 randomly generated synchronous circuits.
+        Check that *Algorithm OPT2* works on 10 randomly generated synchronous circuits.
         """
         for _ in range(10):
             g = gen_random_circuit()
@@ -258,7 +257,7 @@ class Tests(TestCase):
 
     def test_already_minimum_graph(self):
         """
-        Check that Algorithms OPT1 and OPT2 work on already minimum graphs.
+        Check that *Algorithms OPT1* and *OPT2* work on already minimum graphs.
         """
         g = nx.MultiDiGraph()
         add_weighted_node(g, 'h', 0)

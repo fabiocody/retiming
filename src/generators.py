@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
 import networkx as nx
-from networkx.drawing.nx_pydot import write_dot
 import numpy as np
-from utils import add_weighted_node, check_if_synchronous_circuit, w
+from utils import add_weighted_node, check_if_synchronous_circuit, save_graph
 
 
-def gen_provided_correlator(n):
+def gen_provided_correlator(n, save=False):
     """
     Generate a correlator circuit like the ones described in the paper.
 
-    :param n: the values 1 or 2, depending on which correlator you want to generate
-    :return: the generated graph
+    :param n: The values 1 or 2, depending on which correlator you want to generate.
+    :param save: Whether to save the generated graph or not.
+    :return: The generated graph.
     """
 
     g = nx.MultiDiGraph()
@@ -37,7 +37,8 @@ def gen_provided_correlator(n):
             ('p1', 'p0', 0),
             ('p0', 'h', 0)
         ])
-        write_dot(g, '../graphs/correlator1.dot')
+        if save:
+            save_graph(g, '../graphs/correlator1.dot')
     elif n == 2:
         g.add_weighted_edges_from([
             ('h', 'd0', 1),
@@ -52,18 +53,20 @@ def gen_provided_correlator(n):
             ('p1', 'p0', 0),
             ('p0', 'h', 0)
         ])
-        write_dot(g, '../graphs/correlator2.dot')
+        if save:
+            save_graph(g, '../graphs/correlator2.dot')
     else:
         raise NotImplementedError()
     return g
 
 
-def gen_correlator(k):
+def gen_correlator(k, save=False):
     """
     Generate a correlator of order :math:`k`.
 
-    :param k: the order of the correlator
-    :return: the generated graph
+    :param k: The order of the correlator.
+    :param save: Whether to save the generated graph or not.
+    :return: The generated graph.
     """
     assert k >= 1, 'k should be greater than or equal to 1'
     g = nx.DiGraph()
@@ -78,16 +81,19 @@ def gen_correlator(k):
     g.add_weighted_edges_from([(f'd{k}', f'p{k-1}', 0)])
     g.add_weighted_edges_from([(f'p{i+1}', f'p{i}', 0) for i in range(k-1)])
     g.add_weighted_edges_from([('p0', 'h', 0)])
+    if save:
+        save_graph(g, f'../graphs/correlator_k{k}.dot')
     return g
 
 
-def gen_random_circuit(V=8, E=11):
+def gen_random_circuit(V=8, E=11, save=False):
     """
     Generate a random synchronous circuit.
 
-    :param V: the number of nodes
-    :param E: the number of edges
-    :return: the generated graph
+    :param V: The number of nodes.
+    :param E: The number of edges.
+    :param save: If different from ``None`` or ``False``, the path where to save the generated graph.
+    :return: The generated graph.
     """
     while True:
         g = nx.gnm_random_graph(V, E, directed=True)
@@ -97,4 +103,6 @@ def gen_random_circuit(V=8, E=11):
         for e in g.edges:
             g.edges[e]['weight'] = np.random.randint(10)
         if check_if_synchronous_circuit(g):
+            if save:
+                save_graph(g, save)
             return g
