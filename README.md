@@ -1,6 +1,8 @@
-# advanced-algorithms-project
+# Advanced Algorithms Project
 
 [![Build Status](https://travis-ci.com/fabiocody/advanced-algorithms-project.svg?token=vreerFzSmcFLsbiVv8aF&branch=master)](https://travis-ci.com/fabiocody/advanced-algorithms-project)
+
+## Retiming Synchronous Circuitry
 
 The code in this repository is a Python porting of the algorithms described in the paper *Retiming Synchronous Circuitry*
 by Charles E. Lerserson and James B. Saxe, published in 1986. The paper describes a circuit transformation called *retiming*,
