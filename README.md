@@ -17,3 +17,7 @@ $ pytest tests.py
 ## Documentation
 
 You can find an HTML version of the documentation at this [link](https://fabiocodiglioni.it/advanced-algorithms-project/build/html/index.html).
+
+## Presentation
+
+You can find an HTML version of the presentation at this [link](https://fabiocodiglioni.it/advanced-algorithms-project/presentation/index.html).
