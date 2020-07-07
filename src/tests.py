@@ -12,7 +12,7 @@ from utils import load_graph, check_if_synchronous_circuit, w_path, d_path, d, a
 
 def wd2numpy_correlator(m):
     """
-    Transform a W or D matrix return from Algorithm WD into a 2D numpy array.
+    Transform WD matrices of correlator1 into a 2D numpy array.
 
     :param m: W or D matrix as returned from Algorithm WD
     :return: the numpy version of the provided matrix
