@@ -33,7 +33,7 @@ def cp(g, return_delta=False):
     # By condition W2, G0 is acyclic. Perform a topological sort on G0, totally ordering its vertices so that if there
     # is an edge from vertex u to vertex v in G0, then u precedes v in the total order. Go though the vertices in the
     # order defined by the topological sort.
-    for v in nx.topological_sort(g0):
+    for v in nx.topological_sort(g0):       # O(V + E)
         # STEP 3
         # On visiting each vertex v, compute the quantity ∆(v) as follows:
         #   a. If there is no incoming edge to v, set ∆(v) <- d(v).
@@ -75,7 +75,7 @@ def wd(g):
     # by solving an all-pairs shortest-paths algorithm -- Floyd-Warshall.
     # In the all-pairs algorithm, add two weights by performing component-wise addition, and compare weights using
     # lexicographic ordering.
-    sp = nx.floyd_warshall(g)
+    sp = nx.floyd_warshall(g)   # O(V^2)
     for u in sp:
         for v in sp[u]:
             if sp[u][v] == 0:
@@ -148,7 +148,7 @@ def opt1(g):
     D_range = np.unique(list(D.values()))
     D_range.sort()
 
-    def check_th7(g, c):
+    def check_th7(g, c):        # O(V^3)
         bfg = nx.MultiDiGraph()
         bfg.add_weighted_edges_from([(e[1], e[0], w(g, e)) for e in g.edges])
         bfg.add_weighted_edges_from([(v, u, W[u, v]-1)
