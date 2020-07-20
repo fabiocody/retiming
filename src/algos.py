@@ -35,15 +35,15 @@ def cp(g, return_delta=False):
     # order defined by the topological sort.
     for v in nx.topological_sort(g0):       # O(V + E)
         # STEP 3
-        # On visiting each vertex v, compute the quantity ∆(v) as follows:
-        #   a. If there is no incoming edge to v, set ∆(v) <- d(v).
-        #   b. Otherwise, set ∆(v) <- d(v) + max { ∆(u) : u -e-> v and w(e) = 0 }.
+        # On visiting each vertex v, compute the quantity delta(v) as follows:
+        #   a. If there is no incoming edge to v, set delta(v) <- d(v).
+        #   b. Otherwise, set delta(v) <- d(v) + max { delta(u) : u -e-> v and w(e) = 0 }.
         delta[v] = d(g0, v)
         if g0.in_degree(v) > 0:
             delta[v] += max(list(map(lambda e: delta[e[0]], g0.in_edges(v))))
 
     # STEP 4
-    # The clock period is max { ∆(v) }.
+    # The clock period is max { delta(v) }.
     if return_delta:
         return max(delta.values()), delta
     return max(delta.values())
@@ -204,11 +204,11 @@ def feas(g, c):
         gr = retime(g, r)
 
         # STEP 2.2
-        # Run Algorithm CP on the graph Gr to determine ∆(v) for each vertex v.
+        # Run Algorithm CP on the graph Gr to determine delta(v) for each vertex v.
         _, delta = cp(gr, return_delta=True)
 
         # STEP 2.3
-        # For each v such that ∆(v) > c, set r(v) <- r(v) + 1
+        # For each v such that delta(v) > c, set r(v) <- r(v) + 1
         for v in delta.keys():
             if delta[v] > c:
                 r[v] += 1
