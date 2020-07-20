@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from pprint import pprint
 import networkx as nx
 import numpy as np
 from utils import d, w
@@ -49,7 +50,7 @@ def cp(g, return_delta=False):
     return max(delta.values())
 
 
-def wd(g):
+def wd(g, show=False):
     """
     Given a synchronous circuit :math:`G`, this algorithm computes :math:`W(u, v)` and :math:`D(u, v)` for all
     :math:`u,v \in V` such that :math:`u` is connected to :math:`v` in :math:`G`.
@@ -61,6 +62,7 @@ def wd(g):
     +------------------+----------------+
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit.
+    :param show: Print the matrices.
     :return: Matrices W and D in the form ``dict<(u,v), int>``.
     """
 
@@ -85,6 +87,11 @@ def wd(g):
     # For each shortest path weight (x, y) between two vertices u and v, set W(u, v) <- x and D(u, v) <- d(v) - y.
     W = {(u, v): sp[u][v][0] for u in g.nodes for v in g.nodes if sp[u][v] != np.inf}
     D = {(u, v): d(g, v) - sp[u][v][1] for u in g.nodes for v in g.nodes if sp[u][v] != np.inf}
+    if show:
+        print('Matrix W')
+        pprint(W)
+        print('Matrix D')
+        pprint(D)
     return W, D
 
 
@@ -124,7 +131,7 @@ def __binary_search(arr, f, g):
     return bs_rec(0, len(arr)-1)
 
 
-def opt1(g):
+def opt1(g, show_wd=False):
     """
     Given a synchronous circuit :math:`G`, this algorithm determines a retiming :math:`r` such that the clock period of
     :math:`G_r` is as small as possible.
@@ -136,12 +143,13 @@ def opt1(g):
     +------------------+-----------------------+
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit.
+    :param show_wd: Print matrices W and D.
     :return: The retimed graph having the smallest possible clock period.
     """
 
     # STEP 1
     # Compute W and D using Algorithm WD.
-    W, D = wd(g)
+    W, D = wd(g, show=show_wd)
 
     # STEP 2
     # Sort the elements in the range of D.
@@ -222,7 +230,7 @@ def feas(g, c):
     return r
 
 
-def opt2(g):
+def opt2(g, show_wd=False):
     """
     Given a synchronous circuit :math:`G`, this algorithm determines a retiming :math:`r` such that the clock period of
     :math:`G_r` is as smallas possible.
@@ -234,12 +242,13 @@ def opt2(g):
     +------------------+----------------------+
 
     :param g: A NetworkX (Multi)DiGraph representing a synchronous circuit.
+    :param show_wd: Print matrices W and D.
     :return: The retimed graph having the smallest possible clock period.
     """
 
     # STEP 1
     # Compute W and D using Algorithm WD.
-    W, D = wd(g)
+    W, D = wd(g, show=show_wd)
 
     # STEP 2
     # Sort the elements in the range of D.

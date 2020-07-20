@@ -6,7 +6,7 @@ import numpy as np
 from tqdm import trange
 from algos import cp, wd, opt1, feas, opt2
 from generators import gen_random_circuit
-from utils import load_graph
+from utils import load_graph, save_graph
 
 
 def check_time_complexity():
@@ -71,19 +71,32 @@ def random_test(n=10000):
         assert cpr1 == cpr2 and cpr1 <= cpg and cpr2 <= cpg
 
 
-def run(g):
+def run(g, save=None, show_wd=False):
     cpg = cp(g)
     print(f'The original graph has a clock period of {cpg}')
     print('Running algorithm OPT1')
-    cpr1 = cp(opt1(g))
+    g1 = opt1(g, show_wd=show_wd)
+    if save is not None:
+        path = save+'_opt1.dot'
+        save_graph(g1, path)
+        print(f'Output graph saved to {path}')
+    cpr1 = cp(g1)
     print(f'The graph returned by OPT1 has a clock period of {cpr1}')
     print('Running algorithm OPT2')
-    cpr2 = cp(opt2(g))
+    g2 = opt2(g, show_wd=show_wd)
+    if save is not None:
+        path = save+'_opt2.dot'
+        save_graph(g2, path)
+        print(f'Output graph saved to {path}')
+    cpr2 = cp(g2)
     print(f'The graph returned by OPT2 has a clock period of {cpr2}')
 
 
 if __name__ == '__main__':
     parser = ArgumentParser()
+    parser.add_argument('--output', '-o', help='File where to save the output graphs (please omit the extension, it'
+                                               'will be added automatically')
+    parser.add_argument('--show-wd', action='store_true', help='Show matrices W and D')
     subparsers = parser.add_subparsers()
     parser_random = subparsers.add_parser('random', help='Run the algorithms on a random graph')
     parser_random.add_argument('--nodes', '-n', type=int, default=8, help='The number of nodes (default 8)')
@@ -94,10 +107,10 @@ if __name__ == '__main__':
     if 'nodes' in args and 'edges' in args:
         print(f'Generating random graph with {args.nodes} nodes and {args.edges} edges')
         g = gen_random_circuit(args.nodes, args.edges)
-        run(g)
+        run(g, save=args.output, show_wd=args.show_wd)
     elif 'file' in args:
         print(f'Loading graph from {args.file}')
         g = load_graph(args.file)
-        run(g)
+        run(g, save=args.output, show_wd=args.show_wd)
     else:
         print('ERROR: unrecognized argument')

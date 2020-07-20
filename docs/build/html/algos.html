@@ -220,7 +220,7 @@ if such retiming exists.</p>
 
 <dl class="py function">
 <dt id="algos.opt1">
-<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">opt1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.opt1" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">opt1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">show_wd</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.opt1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a synchronous circuit <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/>, this algorithm determines a retiming <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> such that the clock period of
 <img class="math" src="_images/math/7b98722260306da607db691cec74a88dbb49fa53.png" alt="G_r"/> is as small as possible.</p>
 <table class="docutils align-default">
@@ -239,7 +239,10 @@ if such retiming exists.</p>
 </table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p></li>
+<li><p><strong>show_wd</strong> – Print matrices W and D.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The retimed graph having the smallest possible clock period.</p>
@@ -249,7 +252,7 @@ if such retiming exists.</p>
 
 <dl class="py function">
 <dt id="algos.opt2">
-<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">opt2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.opt2" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">opt2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">show_wd</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.opt2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a synchronous circuit <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/>, this algorithm determines a retiming <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> such that the clock period of
 <img class="math" src="_images/math/7b98722260306da607db691cec74a88dbb49fa53.png" alt="G_r"/> is as smallas possible.</p>
 <table class="docutils align-default">
@@ -268,7 +271,10 @@ if such retiming exists.</p>
 </table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p></li>
+<li><p><strong>show_wd</strong> – Print matrices W and D.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The retimed graph having the smallest possible clock period.</p>
@@ -295,7 +301,7 @@ if such retiming exists.</p>
 
 <dl class="py function">
 <dt id="algos.wd">
-<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">wd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.wd" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">algos.</code><code class="sig-name descname">wd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">show</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#algos.wd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a synchronous circuit <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/>, this algorithm computes <img class="math" src="_images/math/a9ada90c284acb18a69c76113ff58cea2e63fddd.png" alt="W(u, v)"/> and <img class="math" src="_images/math/8d4ec541a1c4dd220c637dff63e537ee0867bc0b.png" alt="D(u, v)"/> for all
 <img class="math" src="_images/math/44de5cc9c2bfad08280ebbd458f43ef15b41a96e.png" alt="u,v \in V"/> such that <img class="math" src="_images/math/9b444cf6329a14140aee8ff5a06ff30772cc1c2f.png" alt="u"/> is connected to <img class="math" src="_images/math/02d98909b5d6acd6a7ff927d4d42790bdd407d58.png" alt="v"/> in <img class="math" src="_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.png" alt="G"/>.</p>
 <table class="docutils align-default">
@@ -314,7 +320,10 @@ if such retiming exists.</p>
 </table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – A NetworkX (Multi)DiGraph representing a synchronous circuit.</p></li>
+<li><p><strong>show</strong> – Print the matrices.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Matrices W and D in the form <code class="docutils literal notranslate"><span class="pre">dict&lt;(u,v),</span> <span class="pre">int&gt;</span></code>.</p>
