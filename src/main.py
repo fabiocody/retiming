@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
+from argparse import ArgumentParser
 from big_o import big_o
 import numpy as np
 from tqdm import trange
 from algos import cp, wd, opt1, feas, opt2
 from generators import gen_random_circuit
+from utils import load_graph
 
 
 def check_time_complexity():
@@ -69,5 +71,33 @@ def random_test(n=10000):
         assert cpr1 == cpr2 and cpr1 <= cpg and cpr2 <= cpg
 
 
+def run(g):
+    cpg = cp(g)
+    print(f'The original graph has a clock period of {cpg}')
+    print('Running algorithm OPT1')
+    cpr1 = cp(opt1(g))
+    print(f'The graph returned by OPT1 has a clock period of {cpr1}')
+    print('Running algorithm OPT2')
+    cpr2 = cp(opt2(g))
+    print(f'The graph returned by OPT2 has a clock period of {cpr2}')
+
+
 if __name__ == '__main__':
-    check_time_complexity()
+    parser = ArgumentParser()
+    subparsers = parser.add_subparsers()
+    parser_random = subparsers.add_parser('random', help='Run the algorithms on a random graph')
+    parser_random.add_argument('--nodes', '-n', type=int, default=8, help='The number of nodes (default 8)')
+    parser_random.add_argument('--edges', '-e', type=int, default=11, help='The number of edges (default 11)')
+    parser_file = subparsers.add_parser('file', help='Run the algorithms on a graph loaded from a provided DOT file')
+    parser_file.add_argument('file', help='The DOT file from which the graph is loaded')
+    args = parser.parse_args()
+    if 'nodes' in args and 'edges' in args:
+        print(f'Generating random graph with {args.nodes} nodes and {args.edges} edges')
+        g = gen_random_circuit(args.nodes, args.edges)
+        run(g)
+    elif 'file' in args:
+        print(f'Loading graph from {args.file}')
+        g = load_graph(args.file)
+        run(g)
+    else:
+        print('ERROR: unrecognized argument')
