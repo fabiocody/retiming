@@ -94,7 +94,7 @@ def run(g, save=None, show_wd=False):
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--output', '-o', help='File where to save the output graphs (please omit the extension, it'
+    parser.add_argument('--output', '-o', help='File where to save the output graphs (please omit the extension, it '
                                                'will be added automatically')
     parser.add_argument('--show-wd', action='store_true', help='Show matrices W and D')
     subparsers = parser.add_subparsers()
