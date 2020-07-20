@@ -32,6 +32,8 @@ def load_graph(path):
 
 def save_graph(g, path):
     g = g.copy()
+    for v in g.nodes:
+        g.nodes[v]['label'] = f'{v};{g.nodes[v]["weight"]}'
     for e in g.edges:
         g.edges[e]['label'] = g.edges[e]['weight']
     write_dot(g, path)
