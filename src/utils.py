@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+from pprint import pprint
 import networkx as nx
 from networkx.drawing.nx_pydot import read_dot, write_dot
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def draw_graph(g, weights=False):
@@ -110,3 +112,23 @@ def check_if_synchronous_circuit(g):
         if cost == 0:
             return False
     return True
+
+
+def print_wd(m):
+    rows, cols = zip(*m.keys())
+    nodes = set(rows).union(set(cols))
+    print('   | ', end='')
+    for u in nodes:
+        print(f'{str(u):>2s}', end=' ')
+    print('\n---+', end='')
+    for _ in nodes:
+        print('---', end='')
+    print()
+    for u in nodes:
+        print(f'{str(u):>2s} |', end=' ')
+        for v in nodes:
+            if (u, v) in m:
+                print(f'{m[(u, v)]:>2d}', end=' ')
+            else:
+                print('XX', end=' ')
+        print()

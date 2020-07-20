@@ -3,7 +3,7 @@
 from pprint import pprint
 import networkx as nx
 import numpy as np
-from utils import d, w
+from utils import d, w, print_wd
 from structures import MyTuple
 
 
@@ -89,9 +89,9 @@ def wd(g, show=False):
     D = {(u, v): d(g, v) - sp[u][v][1] for u in g.nodes for v in g.nodes if sp[u][v] != np.inf}
     if show:
         print('Matrix W')
-        pprint(W)
+        print_wd(W)
         print('Matrix D')
-        pprint(D)
+        print_wd(D)
     return W, D
 
 
