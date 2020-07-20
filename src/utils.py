@@ -23,14 +23,9 @@ def add_weighted_node(g, n, weight):
 
 def load_graph(path):
     g = read_dot(path)
-    nodes = g.nodes(data=True)
+    for v in g.nodes:
+        g.nodes[v]['weight'] = int(g.nodes[v]['weight'])
     for e in g.edges:
-        for v in e[0:2]:
-            v = nodes[v]
-            try:
-                v['weight'] = int(v['weight'])
-            except KeyError:
-                pass
         g.edges[e]['weight'] = int(g.edges[e]['weight'])
     return g
 
@@ -116,7 +111,8 @@ def check_if_synchronous_circuit(g):
 
 def print_wd(m):
     rows, cols = zip(*m.keys())
-    nodes = set(rows).union(set(cols))
+    nodes = list(set(rows).union(set(cols)))
+    nodes.sort()
     print('   | ', end='')
     for u in nodes:
         print(f'{str(u):>2s}', end=' ')
