@@ -1,8 +1,6 @@
-# Advanced Algorithms Project
+# Retiming Synchronous Circuitry
 
 [![Build Status](https://travis-ci.com/fabiocody/advanced-algorithms-project.svg?token=vreerFzSmcFLsbiVv8aF&branch=master)](https://travis-ci.com/fabiocody/advanced-algorithms-project)
-
-## Retiming Synchronous Circuitry
 
 The code in this repository is a Python porting of the algorithms described in the paper *Retiming Synchronous Circuitry*
 by Charles E. Leiserson and James B. Saxe , published in 1986. The paper describes a circuit transformation called *retiming*,
@@ -14,6 +12,13 @@ behavior of the circuit as a whole is preserved.
 ```
 $ cd $PROJECT_DIR/src
 $ pytest tests.py
+```
+
+There is also a command line interface accessible via the `main.py` file. To know more about it, type
+
+```
+$ cd $PROJECT_DIR/src
+$ ./main.py --help
 ```
 
 ## Documentation
