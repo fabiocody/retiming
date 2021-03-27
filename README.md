@@ -1,6 +1,6 @@
 # Retiming Synchronous Circuitry
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/fabiocody/retiming/python-test/master)](https://img.shields.io/github/workflow/status/fabiocody/retiming/python-test/master)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/fabiocody/retiming/python-test/master?label=test)](https://img.shields.io/github/workflow/status/fabiocody/retiming/python-test/master?label=test)
 
 The code in this repository is a Python porting of the algorithms described in the paper *Retiming Synchronous Circuitry*
 by Charles E. Leiserson and James B. Saxe , published in 1986. The paper describes a circuit transformation called *retiming*,
